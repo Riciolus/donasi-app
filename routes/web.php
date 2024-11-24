@@ -13,6 +13,10 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+Route::get('/campaign', function () {
+    return view('layout/DetailCampaign');
+});
+
 Route::get('/', function () {
-    return view('welcome');
+    return view('main');
 });
