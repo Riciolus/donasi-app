@@ -56,7 +56,7 @@
 
                 </div>
 
-                <div class="flex justify-between items-center mt-5 ">
+                <div class="grid grid-cols-3 mt-5 ">
 
                     <div class="p-2.5 border-r border-gray-300">
                         <div class="flex items-center justify-center gap-3 ">
@@ -80,7 +80,7 @@
                                     <polyline class="cls-1 " points="22.5 10.09 12 18.68 1.5 10.09" />
                                 </svg>
                             </div>
-                            <span class="font-bold">218.387</span>
+                            <span class="font-bold">{{ $totalContributors }}</span>
                         </div>
                         <span class="flex justify-center items-center font-medium mt-2 text-sm">Donasi</span>
                     </div>
@@ -88,26 +88,27 @@
                     <div class="p-2.5 ">
                         <div class="flex items-center justify-center gap-3 ">
                             <div>
-                                <svg class="w-5" width="100%" height="100%" viewBox="0 0 24 24" id="Layer_1"
-                                    data-name="Layer 1" xmlns="http://www.w3.org/2000/svg">
-                                    <defs>
-                                        <style>
-                                            .cls-1 {
-                                                fill: none;
-                                                stroke: #020202;
-                                                stroke-miterlimit: 10;
-                                                stroke-width: 1.91px;
-                                            }
-                                        </style>
-                                    </defs>
-                                    <path class="cls-1"
-                                        d="M14.6,9.14A3.35,3.35,0,0,0,12,10.29,3.35,3.35,0,0,0,9.4,9.14a2.89,2.89,0,0,0-3.13,2.57c0,3.87,5.73,6,5.73,6s5.73-2.15,5.73-6A2.89,2.89,0,0,0,14.6,9.14Z" />
-                                    <polygon class="cls-1 "
-                                        points="22.5 22.5 1.5 22.5 1.5 10.09 12 1.5 22.5 10.09 22.5 22.5" />
-                                    <polyline class="cls-1 " points="22.5 10.09 12 18.68 1.5 10.09" />
+                                <svg class="w-6 h-6" width="100%" height="100%" version="1.1" id="Icons"
+                                    xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
+                                    viewBox="0 0 32 32" xml:space="preserve">
+                                    <style type="text/css">
+                                        .st0 {
+                                            fill: none;
+                                            stroke: #000000;
+                                            stroke-width: 2;
+                                            stroke-linecap: round;
+                                            stroke-linejoin: round;
+                                            stroke-miterlimit: 10;
+                                        }
+                                    </style>
+                                    <path class="st0" d="M22,6v18c0,1.6,1.3,3,3,3h0c1.6,0,3-1.3,3-3v-9l-6,0" />
+                                    <path class="st0"
+                                        d="M22,6v18c0,1.3,0.8,2.4,2,2.8V27H8H7c-1.7,0-3-1.4-3-3V6H22z" />
+                                    <line class="st0" x1="8" y1="11" x2="14" y2="11" />
+                                    <line class="st0" x1="8" y1="15" x2="10" y2="15" />
                                 </svg>
                             </div>
-                            <span class="font-bold">16</span>
+                            <span class="font-bold">{{ $recentNews }}</span>
                         </div>
                         <span class="flex justify-center items-center font-medium mt-2 text-sm">Kabar Terbaru</span>
                     </div>
@@ -115,23 +116,11 @@
                     <div class="p-2.5 border-l border-gray-300">
                         <div class="flex items-center justify-center gap-3 ">
                             <div>
-                                <svg class="w-5" width="100%" height="100%" viewBox="0 0 24 24" id="Layer_1"
-                                    data-name="Layer 1" xmlns="http://www.w3.org/2000/svg">
-                                    <defs>
-                                        <style>
-                                            .cls-1 {
-                                                fill: none;
-                                                stroke: #020202;
-                                                stroke-miterlimit: 10;
-                                                stroke-width: 1.91px;
-                                            }
-                                        </style>
-                                    </defs>
-                                    <path class="cls-1 "
-                                        d="M14.6,9.14A3.35,3.35,0,0,0,12,10.29,3.35,3.35,0,0,0,9.4,9.14a2.89,2.89,0,0,0-3.13,2.57c0,3.87,5.73,6,5.73,6s5.73-2.15,5.73-6A2.89,2.89,0,0,0,14.6,9.14Z" />
-                                    <polygon class="cls-1 "
-                                        points="22.5 22.5 1.5 22.5 1.5 10.09 12 1.5 22.5 10.09 22.5 22.5" />
-                                    <polyline class="cls-1 " points="22.5 10.09 12 18.68 1.5 10.09" />
+                                <svg class="w-7 h-7" width="100%" height="100%" viewBox="0 0 24 24" fill="none"
+                                    xmlns="http://www.w3.org/2000/svg">
+                                    <path fill-rule="evenodd" clip-rule="evenodd"
+                                        d="M4.5 6L5.25 5.25H18L18.75 6V7.5H19.5L20.25 8.25V11.25V12V15.75V18.75L19.5 19.5H5.25L4.5 18.75V8.25V6ZM18.75 15.75H15.75C14.5074 15.75 13.5 14.7426 13.5 13.5C13.5 12.2574 14.5074 11.25 15.75 11.25H18.75V9H18H6V18H18.75V15.75ZM17.25 6.75V7.5H6V6.75H17.25ZM15 13.5C15 13.0858 15.3358 12.75 15.75 12.75H18.75V14.25H15.75C15.3358 14.25 15 13.9142 15 13.5Z"
+                                        fill="#080341" />
                                 </svg>
                             </div>
                             <span class="font-bold">8 Kali</span>
@@ -198,7 +187,7 @@
                         <div class="flex gap-3 justify-between items-center">
                             <h5 class="text-lg font-bold text-neutral-600">Donasi</h5>
                             <span
-                                class="bg-cyan-200/50 rounded-full px-2.5 text-lg font-bold text-sky-600">13.681</span>
+                                class="bg-cyan-200/50 rounded-full px-2.5 text-lg font-bold text-sky-600">{{ $totalContributors }}</span>
                         </div>
 
                         <div>
@@ -214,47 +203,29 @@
                         </div>
                     </div>
                     <div class="mt-3 py-2 flex flex-col gap-2">
-                        <div>
-                            <div class="flex justify-start items-center gap-5 bg-neutral-200/70 py-3 px-5 rounded-lg">
-                                <div class="relative w-10 h-10 rounded-full bg-neutral-700">
-                                    {{-- <img src="" alt=""> --}}
-                                </div>
-                                <div class="flex flex-col">
-                                    <span class="font-medium">Orang Baik</span>
-                                    <span>Berdonasi sebesar <span class="font-bold text-neutral-700">Rp25.000</span>
-                                    </span>
-                                    <span class="text-xs">18 menit lalu</span>
-                                </div>
-                            </div>
-                        </div>
 
-                        <div>
-                            <div class="flex justify-start items-center gap-5 bg-neutral-200/70 py-3 px-5 rounded-lg">
-                                <div class="relative w-10 h-10 rounded-full bg-neutral-700">
-                                    {{-- <img src="" alt=""> --}}
-                                </div>
-                                <div class="flex flex-col">
-                                    <span class="font-medium">Orang Baik</span>
-                                    <span>Berdonasi sebesar <span class="font-bold text-neutral-700">Rp25.000</span>
-                                    </span>
-                                    <span class="text-xs">18 menit lalu</span>
-                                </div>
-                            </div>
-                        </div>
 
-                        <div>
-                            <div class="flex justify-start items-center gap-5 bg-neutral-200/70 py-3 px-5 rounded-lg">
-                                <div class="relative w-10 h-10 rounded-full bg-neutral-700">
-                                    {{-- <img src="" alt=""> --}}
-                                </div>
-                                <div class="flex flex-col">
-                                    <span class="font-medium">Orang Baik</span>
-                                    <span>Berdonasi sebesar <span class="font-bold text-neutral-700">Rp25.000</span>
-                                    </span>
-                                    <span class="text-xs">18 menit lalu</span>
+                        @foreach ($fund->contributions as $contribution)
+                            <div>
+                                <div
+                                    class="flex justify-start items-center gap-5 bg-neutral-200/70 py-3 px-5 rounded-lg">
+                                    <div class="relative w-10 h-10 rounded-full bg-neutral-700">
+                                        {{-- <img src="" alt=""> --}}
+                                    </div>
+                                    <div class="flex flex-col">
+                                        <span
+                                            class="font-medium">{{ $contribution->user->name ?? 'Orang Baik' }}</span>
+                                        <span>Berdonasi sebesar <span
+                                                class="font-bold text-neutral-700">Rp{{ number_format($contribution->amount, 0, ',', '.') }}</span>
+                                        </span>
+                                        <span
+                                            class="text-xs">{{ \Carbon\Carbon::parse($contribution->contribution_date)->diffForHumans() }}</span>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
+                        @endforeach
+
+
                     </div>
                 </div>
             </div>

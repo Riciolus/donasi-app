@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Contribution;
 use App\Models\Fund;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 
 class FundController extends Controller
@@ -36,9 +38,17 @@ class FundController extends Controller
      */
     public function show(string $id)
     {
-        $fund = Fund::with('user')->findOrFail($id);
+        $fund = Fund::with(['user', 'contributions' => function($query) {
+            $query->latest()->take(3);
+        }])->findOrFail($id);
+
+        $recentNews = $fund->contributions->filter(function ($contribution) {
+            return $contribution->contribution_date >= Carbon::now()->subDay();
+        })->count();
+
+        $totalContributors = $fund->contributions->unique('user_id')->count();
         
-        return view('layout.detailCampaign', compact('fund'));
+        return view('layout.detailCampaign', compact('fund', 'totalContributors', 'recentNews'));
     }
 
     /**

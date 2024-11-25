@@ -26,6 +26,7 @@ class Contribution extends Model
     {
         return $this->belongsTo(Fund::class);
     }
+    
 
     // Define the relationship with the User model (many contributions made by one user)
     public function user()
