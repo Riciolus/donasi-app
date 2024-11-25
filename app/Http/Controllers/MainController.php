@@ -29,7 +29,7 @@ class MainController extends Controller
 
         //  dd($funds);
          // Pass all data to the view
-         return view('Main', compact('funds', 'userBalance', 'totalDonation'));
+         return view('main', compact('funds', 'userBalance', 'totalDonation'));
      }
      
 

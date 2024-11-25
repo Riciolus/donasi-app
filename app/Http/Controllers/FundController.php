@@ -38,7 +38,7 @@ class FundController extends Controller
     {
         $fund = Fund::with('user')->findOrFail($id);
         
-        return view('layout.DetailCampaign', compact('fund'));
+        return view('layout.detailCampaign', compact('fund'));
     }
 
     /**

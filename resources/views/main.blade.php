@@ -17,7 +17,7 @@
 
 <body class="antialiased  bg-neutral-50 text-neutral-950">
 
-    @include('/layout/NavigationBar')
+    @include('/layout/navigationBar')
 
     {{-- @include('/layout/CardSlider') --}}
 
