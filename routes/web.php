@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\FundController;
 use App\Http\Controllers\FundsController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\MainController;
@@ -18,6 +19,8 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', [MainController::class, 'index']
 );
+
+Route::get('/campaign/{id}', [FundController::class, 'show'])->name('funds.detail');
 
 Route::resource('funds', MainController::class);
 

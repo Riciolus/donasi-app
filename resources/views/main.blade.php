@@ -15,7 +15,7 @@
     @vite('resources/css/app.css')
 </head>
 
-<body class="antialiased">
+<body class="antialiased  bg-neutral-50 text-neutral-950">
 
     @include('/layout/NavigationBar')
 
@@ -23,12 +23,12 @@
 
     {{-- Giving a global styling (padding, margin...) for all components --}}
 
-    <div class="page-wrapper md:mx-52 ">
+    <div class="page-wrapper md:mx-52">
 
 
 
         {{-- Menu Saldo etc. --}}
-        <div class="flex shadow-md rounded-md  border py-2 text-sm mx-3 md:mx-24  mt-5">
+        <div class="flex shadow-md rounded-md  border py-2 text-sm mx-3 md:mx-24 bg-neutral-100  mt-5">
             <div class="flex gap-1 ml-2 w-1/2 border-r border-neutral-400">
                 <svg class="w-10 h-10" width="100%" height="100%" viewBox="0 0 1024 1024" class="icon"
                     version="1.1" xmlns="http://www.w3.org/2000/svg">
@@ -194,16 +194,19 @@
                     @foreach ($funds as $fund)
                         <div
                             class="min-w-52 rounded-xl shadow-md  shadow-neutral-200 md:w-[20rem] max-w-52 md:max-w-full">
-                            <img class="rounded-t-xl" src="{{ asset('storage/' . $fund->image_url) }}" alt="">
-                            <div class="text-sm flex flex-col p-2">
-                                <span class="text-xs text-neutral-600">{{ $fund->user->name }}</span>
-                                <span class="font-semibold">{{ $fund->title }}</span>
-                                <div class="mt-2">
-                                    <span class="text-xs">Terkumpul</span>
-                                    <span
-                                        class="font-bold text-blue-500">Rp{{ number_format($fund->collected_amount, 0, ',', '.') }}</span>
+                            <a href="{{ route('funds.detail', $fund->id) }}">
+                                <img class="rounded-t-xl" src="{{ asset('storage/' . $fund->image_url) }}"
+                                    alt="">
+                                <div class="text-sm flex flex-col p-2">
+                                    <span class="text-xs text-neutral-600">{{ $fund->user->name }}</span>
+                                    <span class="font-semibold">{{ $fund->title }}</span>
+                                    <div class="mt-2">
+                                        <span class="text-xs">Terkumpul</span>
+                                        <span
+                                            class="font-bold text-blue-500">Rp{{ number_format($fund->collected_amount, 0, ',', '.') }}</span>
+                                    </div>
                                 </div>
-                            </div>
+                            </a>
                         </div>
                     @endforeach
                 </div>
