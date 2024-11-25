@@ -17,6 +17,7 @@ class UsersTableSeeder extends Seeder
                 'password' => 'akbar',
                 'created_at' => now(),
                 'updated_at' => now(),
+                'balance' => 349000,
 
             ],
             [
@@ -25,6 +26,26 @@ class UsersTableSeeder extends Seeder
                 'password' => 'asdasd',
                 'created_at' => now(),
                 'updated_at' => now(),
+                'balance' => 670000,
+            
+            ],
+            [
+                'name' => 'Jaya Logam',
+                'email' => 'ptjayalogam@gmail.com',
+                'password' => 'asdasd',
+                'created_at' => now(),
+                'updated_at' => now(),
+                'balance' => 670000,
+            
+            ],
+            [
+                'name' => 'Panti Asuhan Bogot',
+                'email' => 'pantiashuham@gmail.com',
+                'password' => 'asdasd',
+                'created_at' => now(),
+                'updated_at' => now(),
+                'balance' => 670000,
+            
             ],
         ]);
     }

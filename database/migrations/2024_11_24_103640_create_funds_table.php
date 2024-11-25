@@ -13,10 +13,12 @@ return new class extends Migration
     {
         Schema::create('funds', function (Blueprint $table) {
         $table->id(); // Primary Key
+        $table->foreignId('user_id')->constrained()->onDelete('cascade');
         $table->string('title');
         $table->text('description')->nullable();
-        $table->decimal('goal_amount', 10, 2); // Fundraising goal
-        $table->decimal('collected_amount', 10, 2)->default(0); // Raised amount
+        $table->integer('goal_amount'); // Fundraising goal
+        $table->integer('collected_amount')->default(0); // Raised amount
+        $table->string('image_url'); // Or 'image_path'
         $table->timestamp('created_at')->useCurrent();
         $table->timestamp('updated_at')->useCurrent()->useCurrentOnUpdate();
         });

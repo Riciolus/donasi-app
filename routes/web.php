@@ -1,5 +1,8 @@
 <?php
 
+use App\Http\Controllers\FundsController;
+use App\Http\Controllers\HomeController;
+use App\Http\Controllers\MainController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -13,10 +16,11 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+Route::get('/', [MainController::class, 'index']
+);
+
+Route::resource('funds', MainController::class);
+
 Route::get('/campaign', function () {
     return view('layout/DetailCampaign');
-});
-
-Route::get('/', function () {
-    return view('main');
 });

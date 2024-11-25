@@ -23,11 +23,12 @@
 
     {{-- Giving a global styling (padding, margin...) for all components --}}
 
-    <div class="page-wrapper ">
+    <div class="page-wrapper md:mx-52 ">
+
 
 
         {{-- Menu Saldo etc. --}}
-        <div class="flex shadow-md rounded-md  border py-2 text-sm mx-3 mt-5">
+        <div class="flex shadow-md rounded-md  border py-2 text-sm mx-3 md:mx-24  mt-5">
             <div class="flex gap-1 ml-2 w-1/2 border-r border-neutral-400">
                 <svg class="w-10 h-10" width="100%" height="100%" viewBox="0 0 1024 1024" class="icon"
                     version="1.1" xmlns="http://www.w3.org/2000/svg">
@@ -85,7 +86,7 @@
 
 
                 <div class="flex flex-col">
-                    <span class="font-semibold text-base">30.000</span>
+                    <span class="font-semibold text-base">{{ number_format($userBalance->balance, 0, ',', '.') }}</span>
                     <span class="text-neutral-600">Kantong Donasimu</span>
                 </div>
             </div>
@@ -169,7 +170,7 @@
                 </svg>
 
                 <div class="flex flex-col">
-                    <span class="font-semibold text-base">120.000</span>
+                    <span class="font-semibold text-base">{{ number_format($totalDonation, 0, ',', '.') }}</span>
 
                     <span class="text-neutral-600">Total Sedekah</span>
                 </div>
@@ -178,46 +179,87 @@
 
         {{-- Card Slider Event --}}
 
+
         {{-- Card Slider Donasi --}}
-        <div class="mt-4 mx-3 ">
-            <h3 class="font-bold">Pilihan Jumat Berkah</h3>
-        </div>
-        <div class="flex ml-3 mt-3 pb-1 gap-3 overflow-x-auto scroll-smooth ">
-            <div class="min-w-52 rounded-xl shadow-md  shadow-neutral-200 max-w-52">
-                <img class="rounded-t-xl" src="{{ asset('assets/images/image.png') }}" alt="">
-                <div class="text-sm flex flex-col p-2">
-                    <span class="text-xs text-neutral-600">Bear Brand</span>
-                    <span class="font-semibold">Sedekah Subuh Bantu 1000+ Pegiat UMKM Indonesia!</span>
-                    <div class="mt-2">
-                        <span class="text-xs">Terkumpul</span>
-                        <span class="font-bold text-blue-500">Rp52.126.377</span>
+        {{-- flex flex-col justify-center md:items-center --}}
+        <div>
+            <div class="mt-4 mx-3">
+                <h3 class="font-bold ">Pilihan Jumat Berkah</h3>
+            </div>
+
+
+            @if ($funds->count())
+                <div
+                    class="flex md:justify-center md:items-center  ml-3 md:ml-0 mt-3 pb-1 gap-3 md:gap-5 overflow-x-auto scroll-smooth ">
+                    @foreach ($funds as $fund)
+                        <div
+                            class="min-w-52 rounded-xl shadow-md  shadow-neutral-200 md:w-[20rem] max-w-52 md:max-w-full">
+                            <img class="rounded-t-xl" src="{{ asset('storage/' . $fund->image_url) }}" alt="">
+                            <div class="text-sm flex flex-col p-2">
+                                <span class="text-xs text-neutral-600">{{ $fund->user->name }}</span>
+                                <span class="font-semibold">{{ $fund->title }}</span>
+                                <div class="mt-2">
+                                    <span class="text-xs">Terkumpul</span>
+                                    <span
+                                        class="font-bold text-blue-500">Rp{{ number_format($fund->collected_amount, 0, ',', '.') }}</span>
+                                </div>
+                            </div>
+                        </div>
+                    @endforeach
+                </div>
+            @else
+                <p>No funds available or Server is busy, please try again.</p>
+            @endif
+
+            {{-- <div class="min-w-52 rounded-xl shadow-md  shadow-neutral-200 max-w-52">
+                    <img class="rounded-t-xl" src="{{ asset('assets/images/image.png') }}" alt="">
+                    <div class="text-sm flex flex-col p-2">
+                        <span class="text-xs text-neutral-600">Bear Brand</span>
+                        <span class="font-semibold">Sedekah Subuh Bantu 1000+ Pegiat UMKM Indonesia!</span>
+                        <div class="mt-2">
+                            <span class="text-xs">Terkumpul</span>
+                            <span class="font-bold text-blue-500">Rp52.126.377</span>
+
+                        </div>
                     </div>
                 </div>
-            </div>
 
-            <div class="min-w-52 rounded-xl shadow-md  shadow-neutral-200 max-w-52">
-                <img class="rounded-t-xl" src="{{ asset('assets/images/image.png') }}" alt="">
-                <div class="text-sm flex flex-col p-2">
-                    <span class="text-xs text-neutral-600">Bear Brand</span>
-                    <span class="font-semibold">Sedekah Subuh Bantu 1000+ Pegiat UMKM Indonesia!</span>
-                </div>
-            </div>
 
-            <div class="min-w-52 rounded-xl shadow-md  shadow-neutral-200 max-w-52">
-                <img class="rounded-t-xl" src="{{ asset('assets/images/image.png') }}" alt="">
-                <div class="text-sm flex flex-col p-2">
-                    <span class="text-xs text-neutral-600">Bear Brand</span>
-                    <span class="font-semibold">Sedekah Subuh Bantu 1000+ Pegiat UMKM Indonesia!</span>
+                <div class="min-w-52 rounded-xl shadow-md  shadow-neutral-200 max-w-52">
+                    <img class="rounded-t-xl" src="{{ asset('assets/images/image.png') }}" alt="">
+                    <div class="text-sm flex flex-col p-2">
+                        <span class="text-xs text-neutral-600">Bear Brand</span>
+                        <span class="font-semibold">Sedekah Subuh Bantu 1000+ Pegiat UMKM Indonesia!</span>
+                        <div class="mt-2">
+                            <span class="text-xs">Terkumpul</span>
+                            <span class="font-bold text-blue-500">Rp52.126.377</span>
+                        </div>
+                    </div>
                 </div>
-            </div>
 
-            <div class="min-w-52 rounded-xl shadow-md  shadow-neutral-200 max-w-52">
-                <img class="rounded-t-xl" src="{{ asset('assets/images/image.png') }}" alt="">
-                <div class="text-sm flex flex-col p-2">
-                    <span class="text-xs text-neutral-600">Bear Brand</span>
-                    <span class="font-semibold">Sedekah Subuh Bantu 1000+ Pegiat UMKM Indonesia!</span>
+                <div class="min-w-52 rounded-xl shadow-md  shadow-neutral-200 max-w-52">
+                    <img class="rounded-t-xl" src="{{ asset('assets/images/image.png') }}" alt="">
+                    <div class="text-sm flex flex-col p-2">
+                        <span class="text-xs text-neutral-600">Bear Brand</span>
+                        <span class="font-semibold">Sedekah Subuh Bantu 1000+ Pegiat UMKM Indonesia!</span>
+                        <div class="mt-2">
+                            <span class="text-xs">Terkumpul</span>
+                            <span class="font-bold text-blue-500">Rp52.126.377</span>
+                        </div>
+                    </div>
                 </div>
-            </div>
+
+                <div class="min-w-52 rounded-xl shadow-md  shadow-neutral-200 max-w-52">
+                    <img class="rounded-t-xl" src="{{ asset('assets/images/image.png') }}" alt="">
+                    <div class="text-sm flex flex-col p-2">
+                        <span class="text-xs text-neutral-600">Bear Brand</span>
+                        <span class="font-semibold">Sedekah Subuh Bantu 1000+ Pegiat UMKM Indonesia!</span>
+                        <div class="mt-2">
+                            <span class="text-xs">Terkumpul</span>
+                            <span class="font-bold text-blue-500">Rp52.126.377</span>
+                        </div>
+                    </div>
+                </div> --}}
         </div>
 
         <div class="mt-3 mx-3 ">
