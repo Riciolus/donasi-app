@@ -19,10 +19,8 @@
 
     @include('/layout/navigationBar')
 
-    {{-- @include('/layout/CardSlider') --}}
 
     {{-- Giving a global styling (padding, margin...) for all components --}}
-
     <div class="page-wrapper md:mx-52">
 
 
@@ -181,7 +179,6 @@
 
 
         {{-- Card Slider Donasi --}}
-        {{-- flex flex-col justify-center md:items-center --}}
         <div>
             <div class="mt-4 mx-3">
                 <h3 class="font-bold ">Pilihan Jumat Berkah</h3>
@@ -197,13 +194,23 @@
                             <a href="{{ route('funds.detail', $fund->id) }}">
                                 <img class="rounded-t-xl" src="{{ asset('storage/' . $fund->image_url) }}"
                                     alt="">
-                                <div class="text-sm flex flex-col p-2">
+                                <div class="text-sm flex flex-col px-2">
                                     <span class="text-xs text-neutral-600">{{ $fund->user->name }}</span>
                                     <span class="font-semibold">{{ $fund->title }}</span>
                                     <div class="mt-2">
                                         <span class="text-xs">Terkumpul</span>
                                         <span
                                             class="font-bold text-blue-500">Rp{{ number_format($fund->collected_amount, 0, ',', '.') }}</span>
+                                    </div>
+                                </div>
+
+                                @php
+                                    $progressPercentage = ($fund->collected_amount / $fund->goal_amount) * 100;
+                                @endphp
+
+                                <div class="bg-gray-200 rounded-full h-1.5 m-2">
+                                    <div class="bg-sky-500 h-1.5 rounded-full"
+                                        style="width: {{ min($progressPercentage, 100) }}%;">
                                     </div>
                                 </div>
                             </a>
@@ -213,56 +220,6 @@
             @else
                 <p>No funds available or Server is busy, please try again.</p>
             @endif
-
-            {{-- <div class="min-w-52 rounded-xl shadow-md  shadow-neutral-200 max-w-52">
-                    <img class="rounded-t-xl" src="{{ asset('assets/images/image.png') }}" alt="">
-                    <div class="text-sm flex flex-col p-2">
-                        <span class="text-xs text-neutral-600">Bear Brand</span>
-                        <span class="font-semibold">Sedekah Subuh Bantu 1000+ Pegiat UMKM Indonesia!</span>
-                        <div class="mt-2">
-                            <span class="text-xs">Terkumpul</span>
-                            <span class="font-bold text-blue-500">Rp52.126.377</span>
-
-                        </div>
-                    </div>
-                </div>
-
-
-                <div class="min-w-52 rounded-xl shadow-md  shadow-neutral-200 max-w-52">
-                    <img class="rounded-t-xl" src="{{ asset('assets/images/image.png') }}" alt="">
-                    <div class="text-sm flex flex-col p-2">
-                        <span class="text-xs text-neutral-600">Bear Brand</span>
-                        <span class="font-semibold">Sedekah Subuh Bantu 1000+ Pegiat UMKM Indonesia!</span>
-                        <div class="mt-2">
-                            <span class="text-xs">Terkumpul</span>
-                            <span class="font-bold text-blue-500">Rp52.126.377</span>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="min-w-52 rounded-xl shadow-md  shadow-neutral-200 max-w-52">
-                    <img class="rounded-t-xl" src="{{ asset('assets/images/image.png') }}" alt="">
-                    <div class="text-sm flex flex-col p-2">
-                        <span class="text-xs text-neutral-600">Bear Brand</span>
-                        <span class="font-semibold">Sedekah Subuh Bantu 1000+ Pegiat UMKM Indonesia!</span>
-                        <div class="mt-2">
-                            <span class="text-xs">Terkumpul</span>
-                            <span class="font-bold text-blue-500">Rp52.126.377</span>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="min-w-52 rounded-xl shadow-md  shadow-neutral-200 max-w-52">
-                    <img class="rounded-t-xl" src="{{ asset('assets/images/image.png') }}" alt="">
-                    <div class="text-sm flex flex-col p-2">
-                        <span class="text-xs text-neutral-600">Bear Brand</span>
-                        <span class="font-semibold">Sedekah Subuh Bantu 1000+ Pegiat UMKM Indonesia!</span>
-                        <div class="mt-2">
-                            <span class="text-xs">Terkumpul</span>
-                            <span class="font-bold text-blue-500">Rp52.126.377</span>
-                        </div>
-                    </div>
-                </div> --}}
         </div>
 
         <div class="mt-3 mx-3 ">

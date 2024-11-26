@@ -11,32 +11,32 @@
     <link rel="preconnect" href="https://fonts.bunny.net">
     <link href="https://fonts.bunny.net/css?family=figtree:400,600&display=swap" rel="stylesheet" />
 
-
+    {{-- Connect CSS  --}}
     @vite('resources/css/app.css')
 </head>
 
 <body class="antialiased bg-neutral-50 text-neutral-700 ">
-    <div class="">
+    <div>
+
         {{-- Image --}}
         <div class="w-full">
             <img class="h-44 w-full object-cover" src="{{ asset('storage/' . $fund->image_url) }}" alt="">
-
         </div>
 
         <div class=" bg-gray-200">
+
             {{-- Main Information --}}
             <div class="py-3 px-3 bg-neutral-50 border-b-2 border-gray-300">
+
+                {{-- Title --}}
                 <div>
                     <span class="font-bold text-xl text-neutral-700">
                         {{ $fund->title }}
                     </span>
                 </div>
 
-
-
-
+                {{-- Informasi total donasi, progress, dan additional informations --}}
                 <div class="flex flex-col gap-1 mt-3">
-
                     <span
                         class="font-bold text-xl text-cyan-500">Rp{{ number_format($fund->collected_amount, 0, ',', '.') }}</span>
 
@@ -44,20 +44,19 @@
                         <span
                             class="text-sm font-bold">Rp{{ number_format($fund->goal_amount, 0, ',', '.') }}</span></span>
 
+                    {{-- Kalkulasi mencari persenan uang terkumpul dan uang yang diharapkan. untuk lebar progress bar --}}
                     @php
                         $progressPercentage = ($fund->collected_amount / $fund->goal_amount) * 100;
                     @endphp
 
                     <div class="w-full bg-gray-200 rounded-full h-3 mt-1">
                         <div class="bg-sky-500 h-3 rounded-full" style="width: {{ min($progressPercentage, 100) }}%;">
-
                         </div>
                     </div>
-
                 </div>
 
+                {{-- Additional Informations [Contributors,  Recent News, Fund Cashout History] --}}
                 <div class="grid grid-cols-3 mt-5 ">
-
                     <div class="p-2.5 border-r border-gray-300">
                         <div class="flex items-center justify-center gap-3 ">
                             <div>
@@ -134,6 +133,8 @@
             {{-- More Detailed Information --}}
 
             <div class="mt-4 px-3 py-3 bg-neutral-50 ">
+
+                {{-- Informasi pembuat fund --}}
                 <div class="border-b pb-6">
                     <h4 class="text-lg font-bold text-neutral-700">Informasi Penggalangan Dana</h4>
 
@@ -157,6 +158,7 @@
                     </div>
                 </div>
 
+                {{-- Fund Description --}}
                 <div class="my-3">
                     <div class="flex justify-between items-center">
                         <div>
@@ -169,9 +171,9 @@
                                 xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 330 330"
                                 xml:space="preserve">
                                 <path id="XMLID_222_" d="M250.606,154.389l-150-149.996c-5.857-5.858-15.355-5.858-21.213,0.001
- c-5.857,5.858-5.857,15.355,0.001,21.213l139.393,139.39L79.393,304.394c-5.857,5.858-5.857,15.355,0.001,21.213
- C82.322,328.536,86.161,330,90,330s7.678-1.464,10.607-4.394l149.999-150.004c2.814-2.813,4.394-6.628,4.394-10.606
- C255,161.018,253.42,157.202,250.606,154.389z" />
+                                c-5.857,5.858-5.857,15.355,0.001,21.213l139.393,139.39L79.393,304.394c-5.857,5.858-5.857,15.355,0.001,21.213
+                                C82.322,328.536,86.161,330,90,330s7.678-1.464,10.607-4.394l149.999-150.004c2.814-2.813,4.394-6.628,4.394-10.606
+                                C255,161.018,253.42,157.202,250.606,154.389z" />
                             </svg>
                         </div>
                     </div>
@@ -182,6 +184,7 @@
                     </div>
                 </div>
 
+                {{-- Contributors --}}
                 <div class="my-3 border-y py-3">
                     <div class="flex justify-between items-center ">
                         <div class="flex gap-3 justify-between items-center">
@@ -196,9 +199,9 @@
                                 xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 330 330"
                                 xml:space="preserve">
                                 <path id="XMLID_222_" d="M250.606,154.389l-150-149.996c-5.857-5.858-15.355-5.858-21.213,0.001
- c-5.857,5.858-5.857,15.355,0.001,21.213l139.393,139.39L79.393,304.394c-5.857,5.858-5.857,15.355,0.001,21.213
- C82.322,328.536,86.161,330,90,330s7.678-1.464,10.607-4.394l149.999-150.004c2.814-2.813,4.394-6.628,4.394-10.606
- C255,161.018,253.42,157.202,250.606,154.389z" />
+                    c-5.857,5.858-5.857,15.355,0.001,21.213l139.393,139.39L79.393,304.394c-5.857,5.858-5.857,15.355,0.001,21.213
+                    C82.322,328.536,86.161,330,90,330s7.678-1.464,10.607-4.394l149.999-150.004c2.814-2.813,4.394-6.628,4.394-10.606
+                    C255,161.018,253.42,157.202,250.606,154.389z" />
                             </svg>
                         </div>
                     </div>
@@ -230,10 +233,22 @@
                 </div>
             </div>
         </div>
+
+
+        {{-- Start Donation Button --}}
+
+
+
         <div class="fixed bottom-0 left-0 w-full">
             <div class="bg-neutral-200 flex justify-center items-center p-3">
-                <button class="w-full py-2 rounded-md text-neutral-50 font-bold bg-pink-600">Donasi Sekarang</button>
+                <a href="{{ Auth::check() ? route('fund.contribute', $fund->id) : route('login') }}" class="w-full">
+                    <button class="w-full py-2 rounded-md text-neutral-50 font-bold bg-pink-600">Donasi
+                        Sekarang</button>
+                </a>
             </div>
         </div>
+        </a>
+
+
     </div>
 </body>
