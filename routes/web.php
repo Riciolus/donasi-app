@@ -6,6 +6,7 @@ use App\Http\Controllers\FundController;
 use App\Http\Controllers\FundsController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\MainController;
+use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -36,3 +37,6 @@ Route::get('/auth/register', [AuthController::class, 'showRegisterForm']
 Route::post('/auth/register', [AuthController::class, 'register']);
 
 Route::post('/auth/logout', [AuthController::class, 'logout'])->name('logout');
+
+Route::get('/profile', [UserController::class, 'index']);
+Route::post('/profile/edit', [UserController::class, 'update'])->name('user.edit');

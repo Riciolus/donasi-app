@@ -15,7 +15,7 @@
     @vite('resources/css/app.css')
 </head>
 
-<body>
+<body class="bg-neutral-50 text-neutral-950">
     <div class="wrapper flex justify-center items-center  bg-sky-400 h-16">
         <div class="container flex justify-between items-center gap-3 px-7">
             <span class="text-neutral-50 font-semibold text-lg">Daftar</span>
@@ -53,17 +53,19 @@
 
                 </div>
 
+                @if ($errors->any())
+                    <div style="color: red;">
+                        @foreach ($errors->all() as $error)
+                            <p class="mt-1">{{ $error }}</p>
+                        @endforeach
+                    </div>
+                @endif
+
                 <button type="submit"
                     class="w-full bg-sky-400 mt-5 py-2 rounded-lg text-neutral-50 font-bold text-lg">Daftar</button>
             </form>
 
-            @if ($errors->any())
-                <div style="color: red;">
-                    @foreach ($errors->all() as $error)
-                        <p>{{ $error }}</p>
-                    @endforeach
-                </div>
-            @endif
+
 
             <div class="mt-3">
                 <span class="text-center flex justify-center items-center">Sudah punya akun? <a href="/auth/login"

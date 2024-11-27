@@ -15,7 +15,7 @@
     @vite('resources/css/app.css')
 </head>
 
-<body>
+<body class="bg-neutral-50 text-neutral-950">
     <div class="wrapper flex justify-center items-center  bg-sky-400 h-16">
         <div class="container flex justify-between items-center gap-3 px-7">
             <span class="text-neutral-50 font-semibold text-lg">Masuk</span>
@@ -25,14 +25,6 @@
     <div class=" max-h-screen h-screen flex flex-col justify-center items-center px-7 py-5">
 
         <h1 class="font-bold text-xl text-neutral-700">Masuk untuk mulai tolong-menolong sesama</h1>
-
-        @if ($errors->any())
-            <div style="color: red;">
-                @foreach ($errors->all() as $error)
-                    <p>{{ $error }}</p>
-                @endforeach
-            </div>
-        @endif
 
         <div class="w-full ">
             <form action="{{ route('login') }}" method="POST">
@@ -50,8 +42,15 @@
                         <input type="password" name="password" required
                             class="border-b-2 border-gray-300 outline-none ps-0.5">
                     </div>
-
                 </div>
+
+                @if ($errors->any())
+                    <div style="color: red;">
+                        @foreach ($errors->all() as $error)
+                            <p class="mt-1">{{ $error }}</p>
+                        @endforeach
+                    </div>
+                @endif
 
                 <button type="submit"
                     class="w-full bg-sky-400 mt-5 py-2 rounded-lg text-neutral-50 font-bold text-lg">Masuk</button>

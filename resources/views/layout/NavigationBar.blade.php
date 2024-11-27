@@ -42,7 +42,7 @@
 
             {{-- Profile Button --}}
             <div class="w-6 h-5">
-                <button>
+                <a href="/profile">
                     <svg width="100%" height="100%" viewBox="-5 0 32 32" version="1.1"
                         xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
                         xmlns:sketch="http://www.bohemiancoding.com/sketch/ns">
@@ -57,7 +57,7 @@
                             </g>
                         </g>
                     </svg>
-                </button>
+                </a>
             </div>
         </div>
     </div>
