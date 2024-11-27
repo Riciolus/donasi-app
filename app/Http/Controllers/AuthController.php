@@ -2,18 +2,37 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\User;
 use Auth;
 use Illuminate\Http\Request;
 
 class AuthController extends Controller
 {
-    // Show the login form
+    public function showRegisterForm()
+    {
+        return view('auth.register');
+    }
+
+    public function register(Request $request)
+    {
+        $validatedData = $request->validate([
+            'name' => 'required',
+            'email' => 'required|email|unique:users,email',  // Ensure email is unique
+            'password' => 'required|min:6',
+        ]);
+
+        $validatedData['password'] = bcrypt($validatedData['password']);
+
+        $user = User::create($validatedData);
+
+        auth()->login($user); 
+
+        return redirect('/');
+    }
     public function showLoginForm()
     {
         return view('auth.login');
     }
-
-    // Handle login logic
     public function login(Request $request)
     {
         // Validate the request data
@@ -33,7 +52,7 @@ class AuthController extends Controller
             'email' => 'Invalid email or password.',
         ]);
     }
-
+    
     // Handle logout
     public function logout(Request $request)
     {

@@ -25,11 +25,14 @@ Route::get('/', [MainController::class, 'index']
 Route::get('/campaign/{id}', [FundController::class, 'show'])->name('funds.detail');
 
 Route::post('/funds/{id}/contribute', [FundController::class, 'contribute'])->name('fund.contribute');
+Route::resource('funds', MainController::class);
 
 Route::get('/auth/login', [AuthController::class, 'showLoginForm']
 )->name("login");
-
 Route::post('/auth/login', [AuthController::class, 'login']);
-Route::post('/auth/logout', [AuthController::class, 'logout'])->name('logout');
 
-Route::resource('funds', MainController::class);
+Route::get('/auth/register', [AuthController::class, 'showRegisterForm']
+)->name("register");
+Route::post('/auth/register', [AuthController::class, 'register']);
+
+Route::post('/auth/logout', [AuthController::class, 'logout'])->name('logout');
