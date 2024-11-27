@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Contribution;
 use App\Models\Fund;
+use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 
@@ -40,10 +41,11 @@ class FundController extends Controller
     ]);
 
     $amount = str_replace('.', '', $request->input('amount')); // Remove dots
+    $userId = auth()->id();
 
     Contribution::create([
         'fund_id' => $fundId,
-        'user_id' => auth()->id(),
+        'user_id' => $userId,
         'amount' => (int)$amount, // Convert to integer
     ]);
 
@@ -52,7 +54,11 @@ class FundController extends Controller
     $fund->collected_amount += (int)$amount;
     $fund->save();
 
-    return redirect()->back()->with('success', 'Contribution successful!');
+    $user = User::findOrFail($userId);
+    $user->balance -= (int)$amount;
+    $user->save();
+
+    return redirect()->back();
 }
 
 

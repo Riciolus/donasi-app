@@ -15,7 +15,7 @@ class MainController extends Controller
 
      public function index()
      {
-         $userId = 1; // Example user ID
+         $userId = auth()->id(); // Example user ID
          
          // Fetch all funds
          $funds = Fund::with('user')->get();
