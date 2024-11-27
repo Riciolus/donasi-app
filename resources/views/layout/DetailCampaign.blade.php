@@ -235,20 +235,350 @@
         </div>
 
 
+
+
         {{-- Start Donation Button --}}
-
-
-
         <div class="fixed bottom-0 left-0 w-full">
             <div class="bg-neutral-200 flex justify-center items-center p-3">
-                <a href="{{ Auth::check() ? route('fund.contribute', $fund->id) : route('login') }}" class="w-full">
-                    <button class="w-full py-2 rounded-md text-neutral-50 font-bold bg-pink-600">Donasi
-                        Sekarang</button>
-                </a>
+                @if (Auth::check())
+                    <button id="openFormModal" class="w-full py-2 rounded-md text-neutral-50 font-bold bg-pink-600">
+                        Donasi Sekarang
+                    </button>
+                @else
+                    <a href="{{ url('auth/login') }}" class="w-full">
+                        <button class="w-full py-2 rounded-md text-neutral-50 font-bold bg-pink-600">
+                            Donasi Sekarang
+                        </button>
+                    </a>
+                @endif
             </div>
         </div>
-        </a>
+
+        <!-- Donation Modal ) -->
+        <div id="donate-form"
+            class="fixed inset-0 text-neutral-700 bg-black bg-opacity-50 justify-center flex items-end">
+            <div class="bg-neutral-50 px-3 pt-5 rounded-t-lg w-full max-w-md h-[80%] transform translate-y-full transition-transform duration-300"
+                id="modal-content">
+                <h2 class="text-lg text-center font-bold ">Pilih Nominal Donasi</h2>
+
+                <form id="donationForm" action="{{ route('fund.contribute', $fund->id) }}" method="POST">
+                    @csrf
+
+                    <div>
+                        <div class="flex flex-col gap-3 mt-4">
+
+                            {{-- 5.000 --}}
+                            <div
+                                class="shadow-md hover:bg-neutral-200 transition-colors border-y border-x-2 p-4 flex items-center gap-3 rounded-md">
+                                <button>
+                                    <svg class="w-8 h-8" xmlns="http://www.w3.org/2000/svg"
+                                        xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 48 48">
+                                        <defs>
+                                            <radialGradient id="radial-gradient" cx="36" cy="18" r="6"
+                                                gradientUnits="userSpaceOnUse">
+                                                <stop offset="0" stop-color="#ff568d" />
+                                                <stop offset=".454" stop-color="#ff9678" />
+                                                <stop offset=".817" stop-color="#ffc26a" />
+                                                <stop offset="1" stop-color="#ffd364" />
+                                            </radialGradient>
+                                            <radialGradient id="radial-gradient-2" cx="12"
+                                                xlink:href="#radial-gradient" />
+                                            <style>
+                                                .cls-4 {
+                                                    fill: #f6fafd
+                                                }
+
+                                                .cls-7 {
+                                                    fill: #273941
+                                                }
+                                            </style>
+                                        </defs>
+                                        <g id="_10-shy" data-name="10-shy">
+                                            <circle cx="24" cy="24" r="23" style="fill:#ffce52" />
+                                            <path
+                                                d="M24 4c12.15 0 22 8.507 22 19h.975a23 23 0 0 0-45.95 0H2C2 12.507 11.85 4 24 4z"
+                                                style="fill:#ffe369" />
+                                            <path
+                                                d="M46 23c0 10.493-9.85 19-22 19S2 33.493 2 23h-.975c-.014.332-.025.665-.025 1a23 23 0 0 0 46 0c0-.335-.011-.668-.025-1z"
+                                                style="fill:#ffb32b" />
+                                            <ellipse class="cls-4" cx="36.5" cy="7.5" rx=".825"
+                                                ry="1.148" transform="rotate(-45.02 36.5 7.5)" />
+                                            <ellipse class="cls-4" cx="30.246" cy="4" rx=".413"
+                                                ry=".574" transform="rotate(-45.02 30.246 4)" />
+                                            <ellipse class="cls-4" cx="33.5" cy="5.5" rx="1.65"
+                                                ry="2.297" transform="rotate(-45.02 33.5 5.5)" />
+                                            <circle cx="36" cy="18" r="6"
+                                                style="fill:url(#radial-gradient)" />
+                                            <circle cx="12" cy="18" r="6"
+                                                style="fill:url(#radial-gradient-2)" />
+                                            <path class="cls-7"
+                                                d="M24 28c-4.411 0-8-3.14-8-7h2c0 2.757 2.691 5 6 5s6-2.243 6-5h2c0 3.86-3.589 7-8 7zM38 13h-2a3 3 0 0 0-6 0h-2a5 5 0 0 1 10 0zM20 13h-2a3 3 0 0 0-6 0h-2a5 5 0 0 1 10 0z" />
+                                        </g>
+                                    </svg>
+                                </button>
+                                <span class="font-bold text-lg">Rp5.000</span>
+                            </div>
+
+                            {{-- 15.000 --}}
+                            <div
+                                class="shadow-md hover:bg-neutral-200 transition-colors border-y border-x-2 p-4 flex items-center gap-3 rounded-md">
+                                <button>
+                                    <svg class="w-8 h-8" xmlns="http://www.w3.org/2000/svg"
+                                        xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 48 48">
+                                        <defs>
+                                            <radialGradient id="radial-gradient" cx="-6.714" cy="24.714" r="6"
+                                                gradientTransform="translate(16.833 -4.833) scale(1.167)"
+                                                gradientUnits="userSpaceOnUse">
+                                                <stop offset="0" stop-color="#ff568d" />
+                                                <stop offset=".454" stop-color="#ff9678" />
+                                                <stop offset=".817" stop-color="#ffc26a" />
+                                                <stop offset="1" stop-color="#ffd364" />
+                                            </radialGradient>
+                                            <radialGradient id="radial-gradient-2" cx="19" cy="24.714"
+                                                xlink:href="#radial-gradient" />
+                                            <style>
+                                                .cls-6 {
+                                                    fill: #3bc5f6
+                                                }
+
+                                                .cls-7 {
+                                                    fill: #00a3e1
+                                                }
+
+                                                .cls-8 {
+                                                    fill: #273941
+                                                }
+                                            </style>
+                                        </defs>
+                                        <g id="_16-cute" data-name="16-cute">
+                                            <circle cx="24" cy="24" r="23" style="fill:#ffce52" />
+                                            <path
+                                                d="M24 4c12.15 0 22 8.507 22 19h.975a23 23 0 0 0-45.95 0H2C2 12.507 11.85 4 24 4z"
+                                                style="fill:#ffe369" />
+                                            <path
+                                                d="M46 23c0 10.493-9.85 19-22 19S2 33.493 2 23h-.975c-.014.332-.025.665-.025 1a23 23 0 0 0 46 0c0-.335-.011-.668-.025-1z"
+                                                style="fill:#ffb32b" />
+                                            <circle cx="9" cy="24" r="7"
+                                                style="fill:url(#radial-gradient)" />
+                                            <circle cx="39" cy="24" r="7"
+                                                style="fill:url(#radial-gradient-2)" />
+                                            <path class="cls-6"
+                                                d="M2.657 9 5 6.657 3.828 5.485a1.657 1.657 0 0 0-2.343 0 1.657 1.657 0 0 0 0 2.343zM6.657 5 9 2.657 7.828 1.485a1.657 1.657 0 0 0-2.343 0 1.657 1.657 0 0 0 0 2.343z" />
+                                            <path class="cls-7"
+                                                d="M2.485 6.485a1.657 1.657 0 0 1 2.343 0l-1-1a1.657 1.657 0 0 0-2.343 2.343l1 1a1.657 1.657 0 0 1 0-2.343zM6.485 2.485a1.657 1.657 0 0 1 2.343 0l-1-1a1.657 1.657 0 0 0-2.343 2.343l1 1a1.657 1.657 0 0 1 0-2.343z" />
+                                            <path class="cls-8"
+                                                d="M32 25.12C31.96 31.71 28.97 38 24 38s-7.96-6.29-8-12.88a8.232 8.232 0 0 0 4 .88 5.824 5.824 0 0 0 4-2 5.824 5.824 0 0 0 4 2 8.232 8.232 0 0 0 4-.88z" />
+                                            <path
+                                                d="M24 38c3.444 0 5.934-3.022 7.154-7.069A13.582 13.582 0 0 0 24 29a13.582 13.582 0 0 0-7.154 1.931C18.066 34.978 20.556 38 24 38z"
+                                                style="fill:#ae2d4c" />
+                                            <path
+                                                d="M24 36c-2.954 0-5.2-2.226-6.554-5.412-.2.11-.407.222-.6.343C18.066 34.978 20.556 38 24 38s5.934-3.022 7.154-7.069c-.193-.121-.4-.233-.6-.343C29.2 33.774 26.954 36 24 36z"
+                                                style="fill:#8a293d" />
+                                            <path class="cls-8"
+                                                d="M40.553 19.9C38.764 19 36.717 19 33 19a1 1 0 0 1-1-1c0-2.265 3.568-5 8-5v2a7.807 7.807 0 0 0-5.419 2c3.058.018 4.963.151 6.866 1.1zM7.447 19.9l-.894-1.79c1.9-.951 3.808-1.084 6.866-1.1A7.807 7.807 0 0 0 8 15v-2c4.432 0 8 2.735 8 5a1 1 0 0 1-1 1c-3.717 0-5.764 0-7.553.9zM28 27a6.127 6.127 0 0 1-4-1.642A6.127 6.127 0 0 1 20 27c-4.836 0-7-2.511-7-5h2c0 1.794 2.01 3 5 3a4.791 4.791 0 0 0 3.293-1.707 1 1 0 0 1 1.414 0A4.791 4.791 0 0 0 28 25c2.99 0 5-1.206 5-3h2c0 2.489-2.164 5-7 5z" />
+                                            <path class="cls-6"
+                                                d="M45.343 9 43 6.657l1.172-1.172a1.657 1.657 0 0 1 2.343 0 1.657 1.657 0 0 1 0 2.343zM41.343 5 39 2.657l1.172-1.172a1.657 1.657 0 0 1 2.343 0 1.657 1.657 0 0 1 0 2.343z" />
+                                            <path class="cls-7"
+                                                d="M46.515 5.485a1.657 1.657 0 0 0-2.343 0l-1 1a1.657 1.657 0 1 1 2.343 2.343l1-1a1.657 1.657 0 0 0 0-2.343zM42.515 1.485a1.657 1.657 0 0 0-2.343 0l-1 1a1.657 1.657 0 0 1 2.343 2.343l1-1a1.657 1.657 0 0 0 0-2.343z" />
+                                        </g>
+                                    </svg>
+                                </button>
+                                <span class="font-bold text-lg">Rp15.000</span>
+                            </div>
+
+                            {{-- 25.000 --}}
+                            <div
+                                class="shadow-md hover:bg-neutral-200 transition-colors border-y border-x-2 p-4 flex items-center gap-3 rounded-md">
+                                <button>
+                                    <svg class="w-8 h-8" xmlns="http://www.w3.org/2000/svg"
+                                        xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 48 48">
+                                        <defs>
+                                            <radialGradient id="radial-gradient" cx="25.285" cy="28.999" r="6"
+                                                gradientTransform="rotate(-.156 -1753.99 -1994.888) scale(1.167)"
+                                                gradientUnits="userSpaceOnUse">
+                                                <stop offset="0" stop-color="#ff568d" />
+                                                <stop offset=".454" stop-color="#ff9678" />
+                                                <stop offset=".817" stop-color="#ffc26a" />
+                                                <stop offset="1" stop-color="#ffd364" />
+                                            </radialGradient>
+                                            <radialGradient id="radial-gradient-2" cx="3.285" cy="28.999"
+                                                r="6" gradientTransform="rotate(-.156 -1755.462 -3341.71) scale(1.167)"
+                                                xlink:href="#radial-gradient" />
+                                            <style>
+                                                .cls-3 {
+                                                    fill: #ffb32b
+                                                }
+
+                                                .cls-4 {
+                                                    fill: #f6fafd
+                                                }
+
+                                                .cls-7 {
+                                                    fill: #273941
+                                                }
+                                            </style>
+                                        </defs>
+                                        <g id="_15-kiss_love" data-name="15-kiss love">
+                                            <circle cx="24" cy="23" r="23" style="fill:#ffce52" />
+                                            <path
+                                                d="M23.946 3C36.1 2.967 45.969 11.447 46 21.94h.975a23 23 0 0 0-45.949.124H2C1.969 11.566 11.8 3.033 23.946 3z"
+                                                style="fill:#ffe369" />
+                                            <path class="cls-3"
+                                                d="M46 21.94c.026 10.494-9.8 19.027-21.951 19.06S2.026 32.553 2 22.06h-.974a22.14 22.14 0 0 0-.023 1 23 23 0 0 0 46-.124c0-.336-.013-.668-.028-1z" />
+                                            <ellipse class="cls-4" cx="36.458" cy="7.466" rx=".825"
+                                                ry="1.148" transform="rotate(-45.175 36.458 7.466)" />
+                                            <ellipse class="cls-4" cx="30.192" cy="2.983" rx=".413"
+                                                ry=".574" transform="rotate(-45.175 30.191 2.984)" />
+                                            <ellipse class="cls-4" cx="33.452" cy="5.474" rx="1.65"
+                                                ry="2.297" transform="rotate(-45.175 33.453 5.474)" />
+                                            <circle cx="35.016" cy="28.97" r="7"
+                                                style="fill:url(#radial-gradient)" />
+                                            <circle cx="13.016" cy="29.03" r="7"
+                                                style="fill:url(#radial-gradient-2)" />
+                                            <path class="cls-7"
+                                                d="M24.043 39a3 3 0 0 1-3.008-2.992l2-.005a1 1 0 1 0 1-1 1 1 0 1 1-.006-2 1 1 0 1 0-1-1l-2 .005a3 3 0 1 1 5.24 1.986A3 3 0 0 1 24.043 39z" />
+                                            <ellipse class="cls-7" cx="14.989" cy="19.024" rx="3"
+                                                ry="4" transform="translate(-.052 .041)" />
+                                            <ellipse cx="14.989" cy="19.024" rx="2" ry="3"
+                                                transform="rotate(-.156 15.032 19.12)" style="fill:#141e21" />
+                                            <circle class="cls-4" cx="15.986" cy="18.022" r="1" />
+                                            <path class="cls-7"
+                                                d="M39.995 20.957h-2a3 3 0 1 0-6 .016l-2 .006a5 5 0 1 1 10-.027z" />
+                                            <path
+                                                d="M34.245 37.639c-.44-.433-3.029-7.438 1.022-11.47a3.65 3.65 0 0 1 5.34-.089c1.32 1.3 1.3 3.062.389 4.839 1.79-.911 3.57-.94 4.89.359a3.564 3.564 0 0 1-.061 5.287c-4.051 4.035-10.7 1.94-11.58 1.074z"
+                                                style="fill:#cf4054" />
+                                            <path
+                                                d="M45.886 31.278c-1.32-1.3-3.1-1.27-4.89-.359.91-1.777.931-3.54-.389-4.839a3.65 3.65 0 0 0-5.34.089c-4.051 4.032-1.462 11.037-1.022 11.47.88.866 7.529 2.958 11.58-1.074a3.564 3.564 0 0 0 .061-5.287zm-1.718 3.97c-2.894 2.88-7.644 1.386-8.272.767-.314-.309-2.164-5.313.73-8.193a2.607 2.607 0 0 1 3.814-.063 2.778 2.778 0 0 1 .278 3.456 2.853 2.853 0 0 1 3.493.257 2.546 2.546 0 0 1-.043 3.776z"
+                                                style="fill:#ae2d4c" />
+                                            <ellipse class="cls-4" cx="44.03" cy="33.946" rx=".825"
+                                                ry="1.148" transform="rotate(-45.175 44.03 33.946)" />
+                                            <ellipse class="cls-4" cx="44.772" cy="32.444" rx=".413"
+                                                ry=".574" transform="rotate(-45.175 44.772 32.444)" />
+                                            <path class="cls-3"
+                                                d="M35.4 38.244a3.69 3.69 0 0 1-1.153-.6 10.933 10.933 0 0 1-1.172-4.374 13.758 13.758 0 0 0 .834 5.69 2.586 2.586 0 0 0 .343.684 8.7 8.7 0 0 0 4.181 1.256 23.191 23.191 0 0 0 2.172-2 12.22 12.22 0 0 1-5.205-.656z" />
+                                        </g>
+                                    </svg>
+                                </button>
+                                <span class="font-bold text-lg">Rp25.000</span>
+                            </div>
+
+                            {{-- 30.000 --}}
+                            <div
+                                class="shadow-md hover:bg-neutral-200 transition-colors border-y border-x-2 p-4 flex items-center gap-3 rounded-md">
+                                <button>
+                                    <svg class="w-8 h-8" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48">
+                                        <defs>
+                                            <style>
+                                                .cls-4 {
+                                                    fill: #f6fafd
+                                                }
+
+                                                .cls-6 {
+                                                    fill: #ae2d4c
+                                                }
+
+                                                .cls-7 {
+                                                    fill: #cf4054
+                                                }
+
+                                                .cls-10 {
+                                                    fill: #fbb40a
+                                                }
+                                            </style>
+                                        </defs>
+                                        <g id="_13-love" data-name="13-love">
+                                            <circle cx="24" cy="24" r="23" style="fill:#ffce52" />
+                                            <path
+                                                d="M24 4c12.15 0 22 8.507 22 19h.975a23 23 0 0 0-45.95 0H2C2 12.507 11.85 4 24 4z"
+                                                style="fill:#ffe369" />
+                                            <path
+                                                d="M46 23c0 10.493-9.85 19-22 19S2 33.493 2 23h-.975c-.014.332-.025.665-.025 1a23 23 0 0 0 46 0c0-.335-.011-.668-.025-1z"
+                                                style="fill:#ffb32b" />
+                                            <ellipse class="cls-4" cx="37" cy="9" rx=".825"
+                                                ry="1.148" transform="rotate(-45.02 37 9)" />
+                                            <ellipse class="cls-4" cx="30.746" cy="4.5" rx=".413"
+                                                ry=".574" transform="rotate(-45.02 30.745 4.5)" />
+                                            <ellipse class="cls-4" cx="34" cy="7" rx="1.65"
+                                                ry="2.297" transform="rotate(-45.02 34 7)" />
+                                            <path
+                                                d="M34 39c0-2.76-4.47-5-10-5s-10 2.24-10 5l-.1.13A10.727 10.727 0 0 1 9 30.15 2.025 2.025 0 0 1 10.87 28c1.88 1.08 6.39 1 13.13 1s11.25.08 13.12-1A2.026 2.026 0 0 1 39 30.15a10.727 10.727 0 0 1-4.9 8.98z"
+                                                style="fill:#273941" />
+                                            <path class="cls-6"
+                                                d="m34 39 .1.13A17.882 17.882 0 0 1 24 42a17.882 17.882 0 0 1-10.1-2.87L14 39c0-2.76 4.47-5 10-5s10 2.24 10 5z" />
+                                            <path class="cls-7"
+                                                d="M16.5 9a4.465 4.465 0 0 1 4.5 4.8C21 21 13.5 25 12 25c-.72 0-8.38-3.7-8.97-10.39Q3 14.205 3 13.8a4.451 4.451 0 0 1 3.58-4.7A4.053 4.053 0 0 1 7.5 9c2.25 0 3.75 1.6 4.5 4 .75-2.4 2.25-4 4.5-4zM45 13.8q0 .4-.03.81C44.44 21.3 37.44 25 36 25c-.75 0-9-4-9-11.2A4.465 4.465 0 0 1 31.5 9c2.25 0 3.75 1.6 4.5 4 .75-2.4 2.25-4 4.5-4a4.053 4.053 0 0 1 .92.1A4.451 4.451 0 0 1 45 13.8z" />
+                                            <path
+                                                d="M10.87 30c1.88 1.08 6.39 1 13.13 1s11.25.08 13.12-1a1.926 1.926 0 0 1 1.793 1.536A11.043 11.043 0 0 0 39 30.15 2.026 2.026 0 0 0 37.12 28c-1.87 1.08-6.38 1-13.12 1s-11.25.08-13.13-1A2.025 2.025 0 0 0 9 30.15a11.015 11.015 0 0 0 .087 1.385A1.92 1.92 0 0 1 10.87 30z"
+                                                style="fill:#141e21" />
+                                            <path
+                                                d="M33.531 37.486A18.171 18.171 0 0 1 24 40a18.171 18.171 0 0 1-9.531-2.514A2.809 2.809 0 0 0 14 39l-.1.13A17.882 17.882 0 0 0 24 42a17.882 17.882 0 0 0 10.1-2.87L34 39a2.809 2.809 0 0 0-.469-1.514z"
+                                                style="fill:#8a293d" />
+                                            <path class="cls-10"
+                                                d="M36 25c-.71 0-8.131-3.59-8.921-10.081A6 6 0 0 0 27 15.8C27 23 35.25 27 36 27c1.44 0 8.44-3.7 8.97-10.39q.03-.41.03-.81a6.079 6.079 0 0 0-.07-.907C44.225 21.4 37.419 25 36 25zM12 25c-.71 0-8.131-3.59-8.921-10.081A6 6 0 0 0 3 15.8C3 23 11.25 27 12 27c1.44 0 8.44-3.7 8.97-10.39q.03-.41.03-.81a6.079 6.079 0 0 0-.07-.907C20.225 21.4 13.419 25 12 25z" />
+                                            <path class="cls-6"
+                                                d="M40.5 9c-2.25 0-3.75 1.6-4.5 4 .583-1.8 1.75-3 3.5-3a3.408 3.408 0 0 1 3.5 3.6c0 5.4-5.833 8.4-7 8.4-.56 0-6.518-2.775-6.977-7.793A8.167 8.167 0 0 1 29 13.6a3.366 3.366 0 0 1 2.784-3.525A3.243 3.243 0 0 1 32.5 10c1.75 0 2.917 1.2 3.5 3-.75-2.4-2.25-4-4.5-4a4.053 4.053 0 0 0-.92.1A4.451 4.451 0 0 0 27 13.8q0 .4.03.81C27.62 21.3 35.28 25 36 25c1.5 0 9-4 9-11.2A4.465 4.465 0 0 0 40.5 9zM16.5 9c-2.25 0-3.75 1.6-4.5 4 .583-1.8 1.75-3 3.5-3a3.408 3.408 0 0 1 3.5 3.6c0 5.4-5.833 8.4-7 8.4-.56 0-6.518-2.775-6.977-7.793A8.25 8.25 0 0 1 5 13.6a3.366 3.366 0 0 1 2.784-3.525A3.243 3.243 0 0 1 8.5 10c1.75 0 2.917 1.2 3.5 3-.75-2.4-2.25-4-4.5-4a4.053 4.053 0 0 0-.92.1A4.451 4.451 0 0 0 3 13.8q0 .4.03.81C3.62 21.3 11.28 25 12 25c1.5 0 9-4 9-11.2A4.465 4.465 0 0 0 16.5 9z" />
+                                            <ellipse class="cls-4" cx="42" cy="13" rx=".825"
+                                                ry="1.148" transform="rotate(-45.02 41.999 13)" />
+                                            <ellipse class="cls-4" cx="40.746" cy="11.5" rx=".413"
+                                                ry=".574" transform="rotate(-45.02 40.746 11.5)" />
+                                            <ellipse class="cls-4" cx="18" cy="13" rx=".825"
+                                                ry="1.148" transform="rotate(-45.02 18 13)" />
+                                            <ellipse class="cls-4" cx="16.746" cy="11.5" rx=".413"
+                                                ry=".574" transform="rotate(-45.02 16.745 11.5)" />
+                                        </g>
+                                    </svg>
+                                </button>
+                                <span class="font-bold text-lg">Rp30.000</span>
+                            </div>
+
+
+                        </div>
+                        <div class="border py-2 px-3 mt-5 border-gray-300 rounded-md">
+
+                            <h5 class="font-semibold ">Nominal Donasi Lainnya</h5>
+                            <div class="flex items-center bg-neutral-200 bg-opacity-50 rounded-md mt-4">
+                                <h2 class="ml-4 text-2xl font-bold">Rp</h2>
+                                <input type="text" id="numberInput" name="amount"
+                                    class="py-2 w-full text-right text-3xl font-bold bg-transparent outline-none rounded-md placeholder:text-neutral-600 pe-3"
+                                    placeholder="0">
+                            </div>
+
+                            <div>
+                                <span class="text-sm {{ $errors->has('amount') ? 'text-red-500' : '' }}">Min. donasi
+                                    sebesar Rp1.000</span>
+                            </div>
+
+                        </div>
+                    </div>
+
+
+
+
+                    <div>
+                        <button type="submit"
+                            class="w-full bg-pink-400 py-2 rounded-md mt-3 text-lg text-neutral-50 font-bold tracking-wide">Donasi</button>
+                    </div>
+                </form>
+
+
+
+
+                {{-- Close Modal button --}}
+                <button id="closeFormModal" class="absolute top-2 right-4 mt-3 ">
+                    <svg class="w-5 h-5" width="100%" height="100%" viewBox="0 0 24 24" fill="none"
+                        xmlns="http://www.w3.org/2000/svg">
+                        <path
+                            d="M20.7457 3.32851C20.3552 2.93798 19.722 2.93798 19.3315 3.32851L12.0371 10.6229L4.74275 3.32851C4.35223 2.93798 3.71906 2.93798 3.32854 3.32851C2.93801 3.71903 2.93801 4.3522 3.32854 4.74272L10.6229 12.0371L3.32856 19.3314C2.93803 19.722 2.93803 20.3551 3.32856 20.7457C3.71908 21.1362 4.35225 21.1362 4.74277 20.7457L12.0371 13.4513L19.3315 20.7457C19.722 21.1362 20.3552 21.1362 20.7457 20.7457C21.1362 20.3551 21.1362 19.722 20.7457 19.3315L13.4513 12.0371L20.7457 4.74272C21.1362 4.3522 21.1362 3.71903 20.7457 3.32851Z"
+                            fill="#0F0F0F" />
+                    </svg>
+                </button>
+            </div>
+        </div>
+
 
 
     </div>
+
+    @vite('resources/js/app.js')
+
 </body>

@@ -33,6 +33,29 @@ class FundController extends Controller
         //
     }
 
+    public function contribute(Request $request, $fundId)
+{
+    $request->validate([
+        'amount' => 'required|regex:/^\d+(\.\d{1,2})?$/', // Ensure input is numeric
+    ]);
+
+    $amount = str_replace('.', '', $request->input('amount')); // Remove dots
+
+    Contribution::create([
+        'fund_id' => $fundId,
+        'user_id' => auth()->id(),
+        'amount' => (int)$amount, // Convert to integer
+    ]);
+
+    // Update collected amount
+    $fund = Fund::findOrFail($fundId);
+    $fund->collected_amount += (int)$amount;
+    $fund->save();
+
+    return redirect()->back()->with('success', 'Contribution successful!');
+}
+
+
     /**
      * Display the specified resource.
      */
