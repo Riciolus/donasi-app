@@ -9,34 +9,29 @@ use App\Http\Controllers\MainController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
-/*
-|--------------------------------------------------------------------------
-| Web Routes
-|--------------------------------------------------------------------------
-|
-| Here is where you can register web routes for your application. These
-| routes are loaded by the RouteServiceProvider and all of them will
-| be assigned to the "web" middleware group. Make something great!
-|
-*/
+// Home route
+Route::get('/', [MainController::class, 'index']);
 
-Route::get('/', [MainController::class, 'index']
-);
-
-Route::get('/campaign/{id}', [FundController::class, 'show'])->name('funds.detail');
-
-Route::post('/funds/{id}/contribute', [FundController::class, 'contribute'])->name('fund.contribute');
+// Fund routes
+Route::prefix('funds')->group(function () {
+    Route::get('/campaign/{id}', [FundController::class, 'show'])->name('funds.detail');
+    Route::post('/{id}/contribute', [FundController::class, 'contribute'])->middleware('auth')->name('fund.contribute');
+});
 Route::resource('funds', MainController::class);
 
-Route::get('/auth/login', [AuthController::class, 'showLoginForm']
-)->name("login");
-Route::post('/auth/login', [AuthController::class, 'login']);
+// Authentication routes
+Route::prefix('auth')->group(function () {
+    Route::get('/login', [AuthController::class, 'showLoginForm'])->name('login');
+    Route::post('/login', [AuthController::class, 'login']);
+    
+    Route::get('/register', [AuthController::class, 'showRegisterForm'])->name('register');
+    Route::post('/register', [AuthController::class, 'register']);
+    
+    Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
+});
 
-Route::get('/auth/register', [AuthController::class, 'showRegisterForm']
-)->name("register");
-Route::post('/auth/register', [AuthController::class, 'register']);
-
-Route::post('/auth/logout', [AuthController::class, 'logout'])->name('logout');
-
-Route::get('/profile', [UserController::class, 'index']);
-Route::post('/profile/edit', [UserController::class, 'update'])->name('user.edit');
+// Profile routes
+Route::middleware('auth')->prefix('profile')->group(function () {
+    Route::get('/', [UserController::class, 'index']);
+    Route::post('/edit', [UserController::class, 'update'])->name('user.edit');
+});
