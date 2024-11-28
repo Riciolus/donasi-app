@@ -293,11 +293,19 @@
                 </div>
             </div>
 
+            <div>
+                <form action="{{ route('logout') }}" method="POST">
+                    @csrf
+                    <button type="submit"
+                        class="w-full bg-pink-400 py-2 mt-5 rounded-lg text-lg text-neutral-50 font-semibold">Keluar
+                    </button>
+                </form>
+            </div>
+
             <!-- Donation Modal ) -->
             <div id="edit-form"
                 class="fixed inset-0 text-neutral-700 bg-black bg-opacity-50 justify-center flex items-end">
-                {{-- translate-y-full --}}
-                <div class="bg-neutral-50 px-3 pt-5 rounded-t-lg w-full max-w-md h-[60%] transform  transition-transform duration-300"
+                <div class="bg-neutral-50 px-3 pt-5 rounded-t-lg w-full max-w-md h-[60%] transform translate-y-full  transition-transform duration-300"
                     id="modal-content">
                     <h2 class="text-lg text-center font-bold ">Edit Profile</h2>
 

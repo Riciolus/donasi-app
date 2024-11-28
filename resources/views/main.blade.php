@@ -84,7 +84,8 @@
 
 
                 <div class="flex flex-col">
-                    <span class="font-semibold text-base">{{ number_format($userBalance->balance, 0, ',', '.') }}</span>
+                    <span
+                        class="font-semibold text-base">{{ Auth::check() ? number_format($userBalance->balance, 0, ',', '.') : '-' }}</span>
                     <span class="text-neutral-600">Kantong Donasimu</span>
                 </div>
             </div>
@@ -168,7 +169,8 @@
                 </svg>
 
                 <div class="flex flex-col">
-                    <span class="font-semibold text-base">{{ number_format($totalDonation, 0, ',', '.') }}</span>
+                    <span
+                        class="font-semibold text-base">{{ Auth::check() ? number_format($totalDonation, 0, ',', '.') : '-' }}</span>
 
                     <span class="text-neutral-600">Total Sedekah</span>
                 </div>
