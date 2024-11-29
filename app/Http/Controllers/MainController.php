@@ -13,25 +13,28 @@ class MainController extends Controller
      * Display a listing of the resource.
      */
 
-     public function index()
-     {
-         $userId = auth()->id(); // Example user ID
-         
-         // Fetch all funds
-         $funds = Fund::with('user')->get();
-     
-         // Fetch user balance
-         $userBalance = User::where('id', $userId)->select('balance')->first();
-         
-         // Calculate total donations by user
-         $totalDonation = (int) Contribution::where('user_id', $userId)->sum('amount');
-     
+    public function index()
+    {
+        $userId = auth()->id(); // Example user ID
+        $userBalance = User::where('id', $userId)->select('balance')->first();
+        $totalDonation = (int) Contribution::where('user_id', $userId)->sum('amount');
 
-        //  dd($funds);
-         // Pass all data to the view
-         return view('main', compact('funds', 'userBalance', 'totalDonation'));
-     }
-     
+        $latestFunds = Fund::orderBy('created_at', 'desc')->take(5)->get();
+        $oldestFunds = Fund::orderBy('created_at', 'asc')->take(5)->get();
+        $randomFunds = Fund::inRandomOrder()->take(5)->get();
+
+        $categories = Fund::select('category')
+        ->distinct()
+        ->pluck('category');
+
+    // Fetch funds by category
+        $fundsByCategory = [];
+        foreach ($categories as $category) {
+        $fundsByCategory[$category] = Fund::where('category', $category)->get();
+        }
+
+        return view('main', compact('latestFunds', 'oldestFunds', 'randomFunds', 'categories', 'fundsByCategory','userBalance', 'totalDonation'));
+    }
 
     /**
      * Show the form for creating a new resource.

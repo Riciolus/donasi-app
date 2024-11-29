@@ -5,17 +5,20 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <title>Donasi Kuy</title>
+    <title>DonasiKuy! - Campaign</title>
 
     <!-- Fonts -->
-    <link rel="preconnect" href="https://fonts.bunny.net">
-    <link href="https://fonts.bunny.net/css?family=figtree:400,600&display=swap" rel="stylesheet" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Nunito:ital,wght@0,200..1000;1,200..1000&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap"
+        rel="stylesheet">
 
     {{-- Connect CSS  --}}
     @vite('resources/css/app.css')
 </head>
 
-<body class="antialiased bg-neutral-50 text-neutral-700 ">
+<body class="antialiased font-inter bg-neutral-50 text-neutral-700 ">
     <div>
 
         {{-- Image --}}
@@ -87,7 +90,7 @@
                     <div class="p-2.5 ">
                         <div class="flex items-center justify-center gap-3 ">
                             <div>
-                                <svg class="w-6 h-6" width="100%" height="100%" version="1.1" id="Icons"
+                                <svg class="w-6 h-6 " width="100%" height="100%" version="1.1" id="Icons"
                                     xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
                                     viewBox="0 0 32 32" xml:space="preserve">
                                     <style type="text/css">
@@ -100,8 +103,8 @@
                                             stroke-miterlimit: 10;
                                         }
                                     </style>
-                                    <path class="st0" d="M22,6v18c0,1.6,1.3,3,3,3h0c1.6,0,3-1.3,3-3v-9l-6,0" />
-                                    <path class="st0"
+                                    <path class="st0 " d="M22,6v18c0,1.6,1.3,3,3,3h0c1.6,0,3-1.3,3-3v-9l-6,0" />
+                                    <path class="st0 "
                                         d="M22,6v18c0,1.3,0.8,2.4,2,2.8V27H8H7c-1.7,0-3-1.4-3-3V6H22z" />
                                     <line class="st0" x1="8" y1="11" x2="14" y2="11" />
                                     <line class="st0" x1="8" y1="15" x2="10" y2="15" />
@@ -585,6 +588,6 @@
 
     </div>
 
-    @vite('resources/js/app.js')
+    @vite('resources/js/fundModal.js')
 
 </body>

@@ -14,6 +14,7 @@ return new class extends Migration
         Schema::create('funds', function (Blueprint $table) {
         $table->id(); // Primary Key
         $table->foreignId('user_id')->constrained()->onDelete('cascade');
+        $table->string('category');
         $table->string('title');
         $table->text('description')->nullable();
         $table->integer('goal_amount'); // Fundraising goal

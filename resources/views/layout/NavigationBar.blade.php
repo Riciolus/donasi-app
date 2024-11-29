@@ -1,4 +1,4 @@
-<div class="wrapper flex justify-center items-center  bg-sky-400 h-16">
+<nav class="wrapper flex justify-center items-center  bg-sky-400 h-16">
     <div class="container flex justify-between items-center gap-3 px-2">
 
         {{-- Left Side Content -> Searchbar --}}
@@ -61,4 +61,4 @@
             </div>
         </div>
     </div>
-</div>
+</nav>

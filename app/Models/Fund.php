@@ -19,6 +19,7 @@ class Fund extends Model
         'goal_amount',
         'collected_amount',
         'image_url',
+        'category'
     ];
 
     // Define relationships (if any)
