@@ -19,7 +19,7 @@
 </head>
 
 <body class="font-inter bg-neutral-50 text-neutral-950">
-    <div class="wrapper flex justify-center items-center bg-sky-400 h-16 ">
+    <nav class="wrapper flex justify-center items-center bg-sky-400 h-16 ">
         <a href="{{ url()->previous() }}" class="ml-5">
             <svg class="fill-neutral-50 w-5 h-5" version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg"
                 xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 330 330" xml:space="preserve">
@@ -32,7 +32,7 @@
         <div class="container flex justify-between items-center gap-3 px-5">
             <span class="text-neutral-50 font-semibold text-lg">Daftar</span>
         </div>
-    </div>
+    </nav>
 
     <div class=" max-h-screen h-screen flex flex-col justify-center items-center px-7 py-5">
 

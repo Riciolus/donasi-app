@@ -16,8 +16,8 @@ Route::get('/', [MainController::class, 'index']);
 Route::prefix('funds')->group(function () {
     Route::get('/campaign/{id}', [FundController::class, 'show'])->name('funds.detail');
     Route::post('/{id}/contribute', [FundController::class, 'contribute'])->middleware('auth')->name('fund.contribute');
+    Route::get('/create', [FundController::class, 'create'])->middleware('auth')->name('fund.create');
 });
-Route::resource('funds', MainController::class);
 
 // Authentication routes
 Route::prefix('auth')->group(function () {
