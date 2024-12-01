@@ -21,7 +21,7 @@
 <body class="font-inter">
     <div class="bg-neutral-50 text-neutral-800">
         <div class="wrapper flex justify-center items-center bg-sky-400 h-16 ">
-            <a href="{{ url()->previous() }}" class="ml-5">
+            <a href="/" class="ml-5">
                 <svg class="fill-neutral-50 w-5 h-5" version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg"
                     xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 330 330" xml:space="preserve">
                     <path id="XMLID_92_"
@@ -62,11 +62,11 @@
                 </div>
             </div>
 
-            @if ($errors->any())
+            {{-- @if ($errors->any())
                 @foreach ($errors->all() as $error)
                     <p style="color: red;">{{ $error }}</p>
                 @endforeach
-            @endif
+            @endif --}}
 
             {{-- Menu Saldo etc. --}}
             <div class="pb-5 border-b-2 ">
@@ -244,6 +244,13 @@
                         </div>
                     </div>
                 </div>
+
+                {{-- Topup --}}
+                <div class="mt-5 mx-3">
+                    <button id="openTopupModal" type="submit"
+                        class="w-full bg-sky-400 py-1.5 rounded-md hover:bg-sky-600 transition-colors text-lg text-neutral-50 font-bold tracking-wide">Top
+                        Up Saldo</button>
+                </div>
             </div>
 
             {{-- Option Features --}}
@@ -314,7 +321,7 @@
                 </form>
             </div>
 
-            <!-- Donation Modal ) -->
+            <!-- Edit Modal ) -->
             <div id="edit-form"
                 class="fixed inset-0 text-neutral-700 bg-black bg-opacity-50 justify-center flex items-end">
                 <div class="bg-neutral-50 px-3 pt-5 rounded-t-lg w-full max-w-md h-[60%] transform translate-y-full  transition-transform duration-300"
@@ -346,7 +353,7 @@
 
                             <div class="mt-5">
                                 <button type="submit"
-                                    class="w-full bg-pink-400 py-2 rounded-md mt-3 text-lg text-neutral-50 font-bold tracking-wide">Submit</button>
+                                    class="w-full bg-pink-400 py-2 hover:bg-pink-600 transition-colors rounded-md mt-3 text-lg text-neutral-50 font-bold tracking-wide">Submit</button>
                             </div>
                         </form>
                     </div>
@@ -354,7 +361,7 @@
 
 
 
-                    {{-- Close Modal button --}}
+                    {{-- Close Edit Modal button --}}
                     <button id="closeEditModal" class="absolute top-2 right-4 mt-3 ">
                         <svg class="w-5 h-5" width="100%" height="100%" viewBox="0 0 24 24" fill="none"
                             xmlns="http://www.w3.org/2000/svg">
@@ -365,10 +372,66 @@
                     </button>
                 </div>
             </div>
+
+            <!-- Topup Modal ) -->
+            <div id="topup-form"
+                class="fixed inset-0 text-neutral-700 bg-black bg-opacity-50 justify-center flex items-center">
+                <div class="bg-neutral-50 mx-3 p-5  rounded-lg w-full max-w-md  transform translate-y-full  transition-transform duration-300"
+                    id="topup-content">
+                    <h2 class="text-lg text-center font-bold ">Top Up Saldo</h2>
+
+                    <div>
+                        <form action="{{ route('user.topup') }}" method="POST">
+                            @csrf
+                            <div class="flex flex-col gap-5 mt-3">
+                                <div class="border py-2 px-3 mt-5 border-gray-300 rounded-md">
+
+                                    <h5 class="font-semibold ">Masukan Nominal Topup</h5>
+                                    <div class="flex items-center bg-neutral-200 bg-opacity-50 rounded-md mt-4">
+                                        <h2 class="ml-4 text-2xl font-bold">Rp</h2>
+                                        <input type="text" id="numberInput" name="addBalance"
+                                            class="py-2 w-full text-right text-3xl font-bold bg-transparent outline-none rounded-md placeholder:text-neutral-600 pe-3"
+                                            placeholder="0">
+                                    </div>
+
+                                    <div class="mt-1">
+                                        <span
+                                            class="text-sm {{ $errors->has('addBalance') ? 'text-red-500' : '' }}">Min.
+                                            top up
+                                            sebesar Rp10.000</span>
+                                    </div>
+
+                                </div>
+                            </div>
+
+                            <div class="mt-5">
+                                <button type="submit"
+                                    class="w-full bg-indigo-400 py-2 hover:bg-indigo-600 transition-colors rounded-md mt-3 text-lg text-neutral-50 font-bold tracking-wide">Submit</button>
+                            </div>
+                        </form>
+                    </div>
+
+
+
+
+                    {{-- Close Topup Modal button --}}
+                    <button id="closeTopupModal" class="absolute top-2 right-4 mt-3 ">
+                        <svg class="w-5 h-5" width="100%" height="100%" viewBox="0 0 24 24" fill="none"
+                            xmlns="http://www.w3.org/2000/svg">
+                            <path
+                                d="M20.7457 3.32851C20.3552 2.93798 19.722 2.93798 19.3315 3.32851L12.0371 10.6229L4.74275 3.32851C4.35223 2.93798 3.71906 2.93798 3.32854 3.32851C2.93801 3.71903 2.93801 4.3522 3.32854 4.74272L10.6229 12.0371L3.32856 19.3314C2.93803 19.722 2.93803 20.3551 3.32856 20.7457C3.71908 21.1362 4.35225 21.1362 4.74277 20.7457L12.0371 13.4513L19.3315 20.7457C19.722 21.1362 20.3552 21.1362 20.7457 20.7457C21.1362 20.3551 21.1362 19.722 20.7457 19.3315L13.4513 12.0371L20.7457 4.74272C21.1362 4.3522 21.1362 3.71903 20.7457 3.32851Z"
+                                fill="#0F0F0F" />
+                        </svg>
+                    </button>
+                </div>
+            </div>
+
+
         </div>
     </div>
 
     @vite('resources/js/editProfileModal.js')
+    @vite('resources/js/topUpModal.js')
 
 </body>
 

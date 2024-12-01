@@ -35,4 +35,20 @@ class UserController extends Controller
         
         return redirect('/profile');
     }
+
+    public function topup(Request $request)
+    {   
+        $validatedData = $request->validate([
+            'addBalance' => 'required|regex:/^\d+(\.\d{1,2})?$/',
+        ]);
+        
+        $amount = str_replace('.', '', $validatedData['addBalance']); // Remove dots
+
+
+        $user = auth()->user();
+        $user->balance += (int) $amount;
+        $user->save();
+
+        return redirect('/profile');
+    }
 }

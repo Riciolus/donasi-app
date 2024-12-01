@@ -23,10 +23,10 @@
 
         {{-- Image --}}
         <div class="w-full">
-            <img class="h-44 w-full object-cover" src="{{ asset('storage/' . $fund->image_url) }}" alt="">
+            <img class="w-full" src="{{ asset('storage/' . $fund->image_url) }}" alt="">
         </div>
 
-        <div class=" bg-gray-200">
+        <div class=" bg-gray-100">
 
             {{-- Main Information --}}
             <div class="py-3 px-3 bg-neutral-50 border-b-2 border-gray-300">
@@ -52,8 +52,8 @@
                         $progressPercentage = ($fund->collected_amount / $fund->goal_amount) * 100;
                     @endphp
 
-                    <div class="w-full bg-gray-200 rounded-full h-3 mt-1">
-                        <div class="bg-sky-500 h-3 rounded-full" style="width: {{ min($progressPercentage, 100) }}%;">
+                    <div class="w-full bg-gray-200 rounded-full h-2 mt-1">
+                        <div class="bg-sky-500 h-2   rounded-full" style="width: {{ min($progressPercentage, 100) }}%;">
                         </div>
                     </div>
                 </div>

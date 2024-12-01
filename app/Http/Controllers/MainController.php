@@ -22,6 +22,7 @@ class MainController extends Controller
         $latestFunds = Fund::orderBy('created_at', 'desc')->take(5)->get();
         $oldestFunds = Fund::orderBy('created_at', 'asc')->take(5)->get();
         $randomFunds = Fund::inRandomOrder()->take(5)->get();
+        $recommendationFunds = Fund::whereIn('id', [6, 7, 8])->get();
 
         $categories = Fund::select('category')
         ->distinct()
@@ -33,7 +34,7 @@ class MainController extends Controller
         $fundsByCategory[$category] = Fund::where('category', $category)->get();
         }
 
-        return view('main', compact('latestFunds', 'oldestFunds', 'randomFunds', 'categories', 'fundsByCategory','userBalance', 'totalDonation'));
+        return view('main', compact('latestFunds', 'oldestFunds', 'randomFunds', 'categories', 'recommendationFunds', 'fundsByCategory','userBalance', 'totalDonation'));
     }
 
     /**

@@ -34,4 +34,5 @@ Route::prefix('auth')->group(function () {
 Route::middleware('auth')->prefix('profile')->group(function () {
     Route::get('/', [UserController::class, 'index']);
     Route::post('/edit', [UserController::class, 'update'])->name('user.edit');
+    Route::post('/topup', [UserController::class, 'topup'])->name('user.topup');
 });

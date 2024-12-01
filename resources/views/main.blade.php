@@ -23,7 +23,7 @@
 
 
     {{-- Giving a global styling (padding, margin...) for all components --}}
-    <div class="relative page-wrapper md:mx-52 py-48">
+    <div class="relative page-wrapper md:mx-52 pt-48">
 
         <div class="absolute bg-sky-400 top-0 -z-10 rounded-b-[2rem] h-56 flex flex-col justify-end">
             <img src="{{ asset('assets/interface/bg-hero.webp') }}" class="" alt="">
@@ -195,7 +195,7 @@
             @endif
         </div>
 
-        <div class="bg-gray-200">
+        <div class="bg-gray-100">
             {{-- Card Slider Event --}}
 
 
@@ -224,7 +224,7 @@
                                                     fill="#1C274C" />
                                             </svg>
                                         </div>
-                                        <span class="font-semibold">{{ $fund->title }}</span>
+                                        <span class="font-semibold h-9">{{ $fund->title }}</span>
                                         <div class="mt-2">
                                             <span class="text-xs">Terkumpul</span>
                                             <span
@@ -256,18 +256,31 @@
                     <h3 class="font-bold">Rekomendasi Donasi</h3>
                 </div>
 
-                <div class="mt-3 flex ">
-                    <div class="min-w-full overflow-x-auto">
-                        <img src="{{ asset('assets/images/rekomen1.png') }}" alt="">
+                <div class="relative w-full overflow-hidden mt-3">
+                    <div id="slider" class="flex transition-transform duration-500 ease-in-out">
+                        @foreach ($recommendationFunds as $fund)
+                            <div class="w-full flex-shrink-0">
+                                <a href="{{ route('funds.detail', $fund->id) }}">
+                                    <img src="{{ asset('storage/' . $fund->image_url) }}"
+                                        class="w-full max-w-full object-cover rounded-lg">
+                                </a>
+                            </div>
+                        @endforeach
                     </div>
-                    <div>
-                        <img src="{{ asset('assets/images/rekomen2.png') }}" alt="">
-                    </div>
-                    <div>
-                        <img src="{{ asset('assets/images/rekomen3.png') }}" alt="">
+
+                    <!-- Navigation Dots -->
+                    <div class="absolute bottom-3 left-1/2 transform -translate-x-1/2 flex space-x-2">
+                        <div class="dot w-1.5 h-1.5 rounded-full bg-gray-100 cursor-pointer" onclick="showSlide(0)">
+                        </div>
+                        <div class="dot w-1.5 h-1.5 rounded-full bg-gray-100 cursor-pointer" onclick="showSlide(1)">
+                        </div>
+                        <div class="dot w-1.5 h-1.5 rounded-full bg-gray-100 cursor-pointer" onclick="showSlide(2)">
+                        </div>
                     </div>
                 </div>
+
             </div>
+
 
             <div class="bg-neutral-50 py-5 mt-3">
                 <div class="mx-3 ">
@@ -292,7 +305,7 @@
                                                     fill="#1C274C" />
                                             </svg>
                                         </div>
-                                        <span class="font-semibold">{{ $fund->title }}</span>
+                                        <span class="font-semibold h-9">{{ $fund->title }}</span>
                                         <div class="mt-2">
                                             <span class="text-xs">Terkumpul</span>
                                             <span
@@ -341,7 +354,7 @@
                                                     fill="#1C274C" />
                                             </svg>
                                         </div>
-                                        <span class="font-semibold">{{ $fund->title }}</span>
+                                        <span class="font-semibold h-9">{{ $fund->title }}</span>
                                         <div class="mt-2">
                                             <span class="text-xs">Terkumpul</span>
                                             <span
@@ -377,8 +390,8 @@
 
                     {{-- Bencana Alam --}}
                     <button id=".category-btn" onclick="showCategory('Bencana Alam')"
-                        class="category-btn flex flex-col  items-center ">
-                        <div class="border-2 border-sky-500 rounded-xl bg-white  w-fit p-1.5">
+                        class="category-btn flex flex-col  items-center gap-3">
+                        <div class="border border-sky-400 rounded-xl transition-all bg-white  w-fit p-2">
                             <svg class="w-10 h-10" viewBox="0 0 72 72" id="emoji"
                                 xmlns="http://www.w3.org/2000/svg">
                                 <g id="color">
@@ -429,8 +442,8 @@
 
                     {{-- Balita & Anak Sakit --}}
                     <button id=".category-btn" onclick="showCategory('Balita & Anak Sakit')"
-                        class="category-btn flex flex-col  items-center">
-                        <div class="border-2 border-sky-500 rounded-xl  w-fit p-1.5 bg-white">
+                        class="category-btn flex flex-col  items-center gap-3">
+                        <div class="border border-sky-400 rounded-xl transition-all w-fit p-2 bg-white">
                             <svg class="w-9 h-9" viewBox="-22.03 0 247.102 247.102"
                                 xmlns="http://www.w3.org/2000/svg">
                                 <defs>
@@ -509,8 +522,8 @@
 
                     {{-- Medis --}}
                     <button id=".category-btn" onclick="showCategory('Bantuan Medis & Kesehatan')"
-                        class="category-btn flex flex-col  items-center">
-                        <div class="border-2 border-sky-500 rounded-xl  w-fit p-1.5 bg-white">
+                        class="category-btn flex flex-col  items-center gap-3">
+                        <div class="border border-sky-400 rounded-xl transition-all  w-fit p-2 bg-white">
                             <svg class="w-9 h-9" version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg"
                                 xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 512 512"
                                 xml:space="preserve">
@@ -554,23 +567,55 @@
                     </button>
 
                     {{-- Lainnya --}}
-                    <button class=" flex flex-col  items-center">
-                        <div class="rounded-xl  w-fit p-1.5 bg-white">
-                            <svg class="w-9 h-9" viewBox="0 0 48 48" fill="none"
+                    <button class=" flex flex-col  items-center gap-3">
+                        <div class="rounded-xl border  w-fit p-2 bg-white">
+                            <svg class="w-10 h-10" viewBox="0 0 1024 1024" class="icon" version="1.1"
                                 xmlns="http://www.w3.org/2000/svg">
-                                <rect width="48" height="48" fill="white" fill-opacity="0.01" />
-                                <rect x="4" y="4" width="16" height="16" rx="2" fill="#2F88FF"
-                                    stroke="#000000" stroke-width="4" stroke-linejoin="round" />
-                                <rect x="4" y="28" width="16" height="16" rx="2" fill="#2F88FF"
-                                    stroke="#000000" stroke-width="4" stroke-linejoin="round" />
-                                <rect x="28" y="4" width="16" height="16" rx="2" fill="#2F88FF"
-                                    stroke="#000000" stroke-width="4" stroke-linejoin="round" />
-                                <path d="M28 28H44" stroke="#000000" stroke-width="4" stroke-linecap="round"
-                                    stroke-linejoin="round" />
-                                <path d="M36 36H44" stroke="#000000" stroke-width="4" stroke-linecap="round"
-                                    stroke-linejoin="round" />
-                                <path d="M28 44H44" stroke="#000000" stroke-width="4" stroke-linecap="round"
-                                    stroke-linejoin="round" />
+                                <path d="M74 183.7h216V918H74z" fill="#55B7A8" />
+                                <path d="M298 926H66V175.7h232V926zM82 910h200V191.7H82V910z" fill="#0A0408" />
+                                <path d="M125.6 246.6h116.8v229.2H125.6z" fill="#FFFFFF" />
+                                <path d="M250.4 483.8H117.6V238.6h132.8v245.2z m-116.8-16h100.8V254.6H133.6v213.2z"
+                                    fill="#0A0408" />
+                                <path d="M178.8 783.9m-55.2 0a55.2 55.2 0 1 0 110.4 0 55.2 55.2 0 1 0-110.4 0Z"
+                                    fill="#FFFFFF" />
+                                <path
+                                    d="M178.8 847.1c-34.8 0-63.2-28.3-63.2-63.2s28.3-63.2 63.2-63.2c34.8 0 63.2 28.3 63.2 63.2s-28.4 63.2-63.2 63.2z m0-110.4c-26 0-47.2 21.2-47.2 47.2s21.2 47.2 47.2 47.2 47.2-21.2 47.2-47.2-21.2-47.2-47.2-47.2z"
+                                    fill="#0A0408" />
+                                <path d="M519.4 224.2L728 168.3l190.1 709.3-208.6 55.9" fill="#FFFFFF" />
+                                <path
+                                    d="M517.346 216.397l7.727-2.07 4.14 15.454-7.727 2.07zM544.1 225.8l-4.1-15.5 14.9-4 4.1 15.5-14.9 4z m29.7-7.9l-4.1-15.5 14.9-4 4.1 15.5-14.9 4z m29.7-8l-4.1-15.5 14.9-4 4.1 15.5-14.9 4z m29.7-8l-4.1-15.5 14.9-4 4.1 15.5-14.9 4zM663 194l-4.1-15.5 14.9-4 4.1 15.5-14.9 4z m29.7-8l-4.1-15.5 14.9-4 4.1 15.5-14.9 4zM722.4 178.1l-4.2-15.5 15.5-4.1 4.1 15.4zM904.2 856.5l-4.1-15.4 15.5-4.1 4.1 15.4-15.5 4.1z m-8.3-30.8l-4.1-15.4 15.5-4.1 4.1 15.4-15.5 4.1z m-8.3-30.9l-4.1-15.4 15.5-4.1 4.1 15.4-15.5 4.1z m-8.2-30.8l-4.1-15.4 15.5-4.1 4.1 15.4-15.5 4.1z m-8.3-30.8l-4.1-15.4 15.5-4.1 4.1 15.4-15.5 4.1z m-8.2-30.9l-4.1-15.4 15.5-4.1 4.1 15.4-15.5 4.1z m-8.3-30.8l-4.1-15.4L866 652l4.1 15.4-15.5 4.1z m-8.3-30.9l-4.1-15.4 15.5-4.1 4.1 15.4-15.5 4.1z m-8.2-30.8l-4.1-15.4 15.5-4.1 4.1 15.4-15.5 4.1z m-8.3-30.8l-4.1-15.4 15.5-4.1 4.1 15.4-15.5 4.1z m-8.3-30.9l-4.1-15.4 15.5-4.1L837 544l-15.5 4.1z m-8.2-30.8l-4.1-15.4 15.5-4.1 4.1 15.4-15.5 4.1z m-8.3-30.9l-4.1-15.4 15.5-4.1 4.1 15.4-15.5 4.1z m-8.2-30.8l-4.1-15.4 15.5-4.1 4.1 15.4-15.5 4.1z m-8.3-30.8l-4.1-15.4 15.5-4.1 4.1 15.4-15.5 4.1z m-8.3-30.9l-4.1-15.4 15.5-4.1 4.1 15.4-15.5 4.1z m-8.2-30.8l-4.1-15.4 15.5-4.1 4.1 15.4-15.5 4.1z m-8.3-30.8l-4.1-15.4 15.5-4.1 4.1 15.4-15.5 4.1z m-8.3-30.9l-4.1-15.4 15.5-4.1 4.1 15.4-15.5 4.1z m-8.2-30.8l-4.1-15.4 15.5-4.1 4.1 15.4-15.5 4.1z m-8.3-30.9l-4.1-15.4 15.5-4.1 4.1 15.4-15.5 4.1z m-8.3-30.8l-4.1-15.4 15.5-4.1 4.1 15.4-15.5 4.1zM908.303 871.94l15.454-4.142 4.143 15.455-15.455 4.142zM734.2 935.1l-4.1-15.5 14.9-4 4.1 15.5-14.9 4z m29.7-7.9l-4.1-15.5 14.9-4 4.1 15.5-14.9 4z m29.7-8l-4.1-15.5 14.9-4 4.1 15.5-14.9 4z m29.7-7.9l-4.1-15.5 14.9-4 4.1 15.5-14.9 4z m29.7-8l-4.1-15.5 14.9-4 4.1 15.5-14.9 4z m29.7-8l-4.1-15.5 14.9-4 4.1 15.5-14.9 4zM707.443 925.66l7.727-2.07 4.141 15.454-7.727 2.07z"
+                                    fill="#0A0408" />
+                                <path d="M583.619 272.12l112.817-30.229 59.317 221.385-112.817 30.228z"
+                                    fill="#FFFFFF" />
+                                <path
+                                    d="M637.3 503.3l-63.5-236.8L702.1 232l63.5 236.8-128.3 34.5z m-43.9-225.6l55.2 205.9 97.4-26.1-55.2-205.9-97.4 26.1z"
+                                    fill="#0A0408" />
+                                <path
+                                    d="M722.664239 791.097256a55.2 55.2 0 1 0 106.63871-28.571762 55.2 55.2 0 1 0-106.63871 28.571762Z"
+                                    fill="#FFFFFF" />
+                                <path
+                                    d="M776 840c-27.9 0-53.5-18.6-61-46.8-9-33.7 11-68.4 44.7-77.4s68.4 11 77.4 44.7c9 33.6-11 68.4-44.7 77.4-5.5 1.4-11 2.1-16.4 2.1z m0-110.4c-4 0-8.1 0.5-12.2 1.6-25.1 6.7-40.1 32.7-33.4 57.8 6.7 25.1 32.7 40.1 57.8 33.4 25.1-6.7 40.1-32.7 33.4-57.8-5.7-21-24.8-35-45.6-35z"
+                                    fill="#0A0408" />
+                                <path d="M888.182 860.34l47.04-12.603 12.603 47.04-47.04 12.603z" fill="#DC444A" />
+                                <path
+                                    d="M895.2 917.2l-16.8-62.5 62.5-16.8 16.8 62.5-62.5 16.8zM898 866l8.5 31.6 31.6-8.5-8.5-31.6L898 866z"
+                                    fill="#0A0408" />
+                                <path d="M698.202 151.04l47.04-12.604 12.603 47.04-47.04 12.603z" fill="#DC444A" />
+                                <path
+                                    d="M705.1 207.9l-16.8-62.5 62.5-16.8 16.8 62.5-62.5 16.8z m2.9-51.2l8.5 31.6 31.6-8.5-8.5-31.6-31.6 8.5z"
+                                    fill="#0A0408" />
+                                <path d="M291.4 183.7h216V918h-216z" fill="#EBB866" />
+                                <path d="M515.4 926h-232V175.7h232V926z m-216-16h200V191.7h-200V910z" fill="#0A0408" />
+                                <path d="M343 246.6h116.8v229.2H343z" fill="#FFFFFF" />
+                                <path d="M467.8 483.8H335V238.6h132.8v245.2z m-116.8-16h100.8V254.6H351v213.2z"
+                                    fill="#0A0408" />
+                                <path d="M396.2 783.9m-55.2 0a55.2 55.2 0 1 0 110.4 0 55.2 55.2 0 1 0-110.4 0Z"
+                                    fill="#FFFFFF" />
+                                <path
+                                    d="M396.2 847.1c-34.8 0-63.2-28.3-63.2-63.2s28.3-63.2 63.2-63.2c34.8 0 63.2 28.3 63.2 63.2s-28.4 63.2-63.2 63.2z m0-110.4c-26 0-47.2 21.2-47.2 47.2s21.2 47.2 47.2 47.2 47.2-21.2 47.2-47.2-21.2-47.2-47.2-47.2z"
+                                    fill="#0A0408" />
+                                <path d="M712.5 941.5L518.4 217.2" fill="#FFFFFF" />
+                                <path d="M510.727 219.228l15.454-4.141 194.074 724.328-15.454 4.141z" fill="#0A0408" />
                             </svg>
                         </div>
                         <span class="text-sm text-center">Lainnya</span>
@@ -584,16 +629,18 @@
 
             <!-- Category Content Divs -->
 
-            <div class="bg-sky-100 bg-opacity-95 p-3">
+            <div class="bg-sky-100 bg-opacity-95 border-b  pt-5">
 
                 <span
-                    class="bg-pink-400/90 px-2 py-1 text-xs rounded-lg tracking-tight font-bold text-neutral-50">REKOMENDASI</span>
+                    class="bg-pink-400/90 px-2 mx-3 py-1  text-xs rounded-lg tracking-tight font-bold text-neutral-50">
+                    REKOMENDASI
+                </span>
 
                 @foreach ($fundsByCategory as $category => $funds)
-                    <div id="{{ $category }}" class="category-content" style="display: none;">
+                    <div id="{{ $category }}" class="category-content px-3" style="display: none;">
 
                         @foreach ($funds as $fund)
-                            <a class="grid grid-cols-2 gap-3 border-b-2 border-neutral-300 py-7"
+                            <a class="grid grid-cols-2 gap-3 border-b border-neutral-200 py-7"
                                 href="{{ route('funds.detail', $fund->id) }}">
                                 <div class="flex justify-center items-center">
                                     <img class="rounded-md" src="{{ asset('storage/' . $fund->image_url) }}"
@@ -637,17 +684,171 @@
                         @endforeach
                     </div>
                 @endforeach
+
+                <!-- More button -->
+                <div id="more-button-container" class="bg-neutral-50 flex  justify-center items-center py-5"
+                    style="display: none;">
+                    <div class="flex justify-center items-center gap-3 bg-sky-100 w-fit px-3.5 py-2 rounded-full">
+                        <a id="more-button" href="#" class=" text-sky-400 text-sm">
+                            Lihat Semua
+                        </a>
+                        <svg class="fill-sky-400 w-5 h-4" height="100%" width="100%" version="1.1"
+                            id="Layer_1" xmlns="http://www.w3.org/2000/svg"
+                            xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 330 330" xml:space="preserve">
+                            <path id="XMLID_222_" d="M250.606,154.389l-150-149.996c-5.857-5.858-15.355-5.858-21.213,0.001
+                                c-5.857,5.858-5.857,15.355,0.001,21.213l139.393,139.39L79.393,304.394c-5.857,5.858-5.857,15.355,0.001,21.213
+                                C82.322,328.536,86.161,330,90,330s7.678-1.464,10.607-4.394l149.999-150.004c2.814-2.813,4.394-6.628,4.394-10.606
+                                C255,161.018,253.42,157.202,250.606,154.389z" />
+                        </svg>
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="relative pt-10 bg-white">
+                <img class="absolute object-fill w-full" src="{{ asset('assets/interface/bg-blue.png') }}"
+                    alt="">
+                <img class="absolute left-3" width="100" src="{{ asset('assets/interface/amin.png') }}"
+                    alt="">
+
+                <div class="relative flex gap-3 z-10 ml-36 mt-20">
+                    <div>
+                        <svg class="w-8 " version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg"
+                            xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 473.931 473.931"
+                            xml:space="preserve">
+                            <circle style="fill:#D42428;" cx="236.966" cy="236.966" r="236.966" />
+                            <path style="fill:#CC202D;" d="M404.518,69.38c92.541,92.549,92.549,242.593,0,335.142c-92.541,92.541-242.593,92.545-335.142,0
+                            L404.518,69.38z" />
+                            <path style="fill:#BA202E;" d="M469.168,284.426L351.886,167.148l-138.322,15.749l-83.669,129.532l156.342,156.338
+                                 C378.157,449.322,450.422,376.612,469.168,284.426z" />
+                            <path style="fill:#FFFFFF;" d="M360.971,191.238c0-19.865-16.093-35.966-35.947-35.966H156.372c-19.85,0-35.94,16.105-35.94,35.966
+                                    v96.444c0,19.865,16.093,35.966,35.94,35.966h168.649c19.858,0,35.947-16.105,35.947-35.966v-96.444H360.971z M216.64,280.146
+                                    v-90.584l68.695,45.294L216.64,280.146z" />
+                        </svg>
+                    </div>
+
+                    <div>
+                        <svg class="w-8 " version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg"
+                            xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 474.006 474.006"
+                            xml:space="preserve">
+                            <circle style="fill:#13B3CA;" cx="237.003" cy="237.003" r="237.003" />
+                            <path style="fill:#10ABB6;" d="M404.567,69.421c92.545,92.541,92.552,242.59-0.004,335.142
+                            c-92.545,92.549-242.601,92.549-335.142,0.007L404.567,69.421z" />
+                            <path style="fill:#0EA2A4;" d="M471.821,268.565l-64.048-64.048l-5.28,5.276l-80.684-80.68l-4.183,4.18l-9.684-9.684l-11.831,11.831
+                            l-9.586-9.583l-15.42,15.416l18.817,18.814l-72.257,72.265l-70.42-70.412l-15.416,15.412l20.295,20.292l-14.282,14.279l23.3,23.3
+                            l-10.271,10.271l28.385,28.389l-4.632,4.636l26.054,26.058l-30.604,30.608l-22.799-22.795l-22.02,22.02l-27.322-27.326l-5.493,5.497
+                            l160.787,160.787C365.993,465.726,457.071,379.242,471.821,268.565z" />
+                            <path style="fill:#FFFFFF;" d="M370.487,226.792c18.941-1.56,31.783-10.174,36.729-21.856c-6.836,4.198-28.044,8.774-39.756,4.412
+                            c-0.572-2.746-1.212-5.366-1.841-7.719c-8.924-32.774-39.479-59.168-71.494-55.984c2.589-1.044,5.224-2.021,7.839-2.892
+                            c3.521-1.265,24.198-4.632,20.946-11.929c-2.746-6.417-28.007,4.853-32.763,6.327c6.279-2.361,16.662-6.425,17.77-13.639
+                            c-9.62,1.317-19.061,5.867-26.353,12.483c2.63-2.84,4.629-6.294,5.055-10.013c-25.665,16.389-40.654,49.432-52.778,81.488
+                            c-9.523-9.227-17.964-16.497-25.541-20.531c-21.242-11.397-46.641-23.285-86.513-38.084c-1.224,13.19,6.522,30.735,28.845,42.398
+                            c-4.838-0.647-13.672,0.801-20.756,2.492c2.885,15.113,12.288,27.562,37.773,33.586c-11.644,0.767-17.661,3.416-23.113,9.126
+                            c5.295,10.511,18.237,22.881,41.504,20.34c-25.867,11.15-10.541,31.812,10.514,28.729c-35.921,37.103-92.556,34.379-125.076,3.349
+                            c84.908,115.699,269.485,68.422,296.98-43.019c20.61,0.172,32.725-7.139,40.235-15.199
+                            C396.817,232.674,379.609,230.593,370.487,226.792z" />
+                        </svg>
+                    </div>
+
+                    <div>
+                        <svg class="w-8 " version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg"
+                            xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 474.294 474.294"
+                            xml:space="preserve">
+                            <circle style="fill:#3A5A98;" cx="237.111" cy="236.966" r="236.966" />
+                            <path style="fill:#345387;" d="M404.742,69.754c92.541,92.541,92.545,242.586-0.004,335.134
+                            c-92.545,92.541-242.593,92.541-335.134,0L404.742,69.754z" />
+                            <path style="fill:#2E4D72;"
+                                d="M472.543,263.656L301.129,92.238l-88.998,88.998l5.302,5.302l-50.671,50.667l41.474,41.474
+                                l-5.455,5.452l44.901,44.901l-51.764,51.764l88.429,88.429C384.065,449.045,461.037,366.255,472.543,263.656z" />
+                            <path style="fill:#FFFFFF;" d="M195.682,148.937c0,7.27,0,39.741,0,39.741h-29.115v48.598h29.115v144.402h59.808V237.276h40.134
+                            c0,0,3.76-23.307,5.579-48.781c-5.224,0-45.485,0-45.485,0s0-28.276,0-33.231c0-4.962,6.518-11.641,12.965-11.641
+                            c6.436,0,20.015,0,32.587,0c0-6.623,0-29.481,0-50.592c-16.786,0-35.883,0-44.306,0C194.201,93.028,195.682,141.671,195.682,148.937
+                            z" />
+                        </svg>
+                    </div>
+
+                    <div>
+                        <svg class="w-8 " version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg"
+                            xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 474.616 474.616"
+                            xml:space="preserve">
+                            <circle style="fill:#284A9E;" cx="236.968" cy="236.967" r="236.967" />
+                            <path style="fill:#24488E;" d="M405.203,70.061c92.546,92.549,92.553,242.591,0,335.148c-92.542,92.542-242.595,92.542-335.144,0
+                            L405.203,70.061z" />
+                            <path style="fill:#1E3F77;"
+                                d="M466.714,295.104L299.58,127.969l-33.957,33.953l-72.329-9.968l7.472,74.828l-35.199,35.199
+                            l71.105,71.101l1.239,48.636l78.514,78.51C390.322,433.92,447.309,372.005,466.714,295.104z" />
+                            <path style="fill:#FFFFFF;" d="M329.061,173.941c-0.984-3.697-2.986-7.633-4.464-11.083c-17.732-42.589-56.456-57.859-87.73-57.859
+                            c-41.863,0-87.973,28.067-94.128,85.934v11.82c0,0.494,0.168,4.92,0.415,7.139c3.45,27.577,25.205,56.886,41.455,84.46
+                            c17.482,29.545,35.626,58.604,53.601,87.663c11.079-18.956,22.121-38.162,32.954-56.639c2.952-5.414,6.38-10.832,9.336-16.004
+                            c1.964-3.442,5.729-6.892,7.45-10.092c17.482-32.011,45.62-64.269,45.62-96.033v-13.051
+                            C333.57,186.749,329.308,174.685,329.061,173.941z M237.631,233.282c-12.307,0-25.773-6.155-32.423-23.147
+                            c-0.992-2.705-0.913-8.123-0.913-8.617v-7.637c0-21.661,18.398-31.513,34.398-31.513c19.701,0,34.933,15.757,34.933,35.457
+                            C273.63,217.529,257.331,233.282,237.631,233.282z" />
+                        </svg>
+                    </div>
+
+
+                </div>
+            </div>
+
+            <div class="">
+                <span>Copyright © 2024 Kitabisa. All Rights Reserved</span>
             </div>
 
         </div>
 
+
+
     </div>
+
+
     </div>
 
     <script>
-        document
-            .querySelectorAll(".category-btn")
-            .forEach((btn) => btn.classList.remove("border-sky-500"));
+        let currentSlide = 0;
+        const totalSlides = document.querySelectorAll("#slider > div").length;
+        const slider = document.getElementById("slider");
+        const dots = document.querySelectorAll(".dot");
+
+        // Function to show a specific slide
+        function showSlide(index) {
+            currentSlide = (index + totalSlides) % totalSlides; // Loop back to the first slide when reaching the end
+            slider.style.transform = `translateX(-${currentSlide * 100}%)`;
+            updateDots();
+        }
+
+        // Function to update dot indicators
+        function updateDots() {
+            dots.forEach((dot, i) => {
+                dot.classList.toggle("bg-sky-400", i === currentSlide);
+                dot.classList.toggle("bg-gray-100", i !== currentSlide);
+            });
+        }
+
+        // Automatic slide change every 3 seconds
+        let slideInterval = setInterval(() => {
+            showSlide(currentSlide + 1);
+        }, 3000);
+
+        // Pause on dot click (optional)
+        dots.forEach((dot, i) => {
+            dot.addEventListener("click", () => {
+                showSlide(i);
+                clearInterval(slideInterval); // Stop auto-sliding when manually interacted
+                slideInterval = setInterval(() => showSlide(currentSlide + 1), 3000); // Restart auto-slide
+            });
+        });
+
+        // Initialize the slider on page load
+        document.addEventListener("DOMContentLoaded", () => {
+            showSlide(currentSlide);
+        });
+
+
+        document.addEventListener("DOMContentLoaded", function() {
+            // Automatically trigger the first button click on page load
+            document.querySelector(".category-btn").click();
+        });
 
         function showCategory(category) {
             // Hide all category content divs
@@ -655,17 +856,27 @@
                 div.style.display = "none";
             });
 
-
-
-            // button.classList.add("border-blue-500");
-
+            // Show the selected category content
             document.getElementById(category).style.display = "block";
-        }
 
-        // Show the first category by default
-        document.addEventListener("DOMContentLoaded", function() {
-            document.querySelector(".category-btn").click();
-        });
+            // Remove the border from all buttons' inner divs
+            document.querySelectorAll(".category-btn div").forEach((div) => {
+                div.classList.remove("border-sky-400");
+            });
+
+            // Add the border to the clicked button's inner div
+            document
+                .querySelector(`button[onclick*="${category}"] div`)
+                .classList.add("border-sky-400");
+
+            // Update the 'More' button link and show it
+            const moreButton = document.getElementById("more-button");
+            moreButton.href = `/funds/category/${category}`; // Or any specific route you want
+
+            // Show the 'More' button container
+            document.getElementById("more-button-container").style.display = "flex";
+
+        }
     </script>
     {{-- @vite('resources/js/app.js') --}}
 </body>
