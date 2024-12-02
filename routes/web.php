@@ -18,6 +18,7 @@ Route::prefix('funds')->group(function () {
     Route::post('/{id}/contribute', [FundController::class, 'contribute'])->middleware('auth')->name('fund.contribute');
     Route::get('/create', [FundController::class, 'create'])->middleware('auth')->name('fund.create');
     Route::post('/create', [FundController::class, 'store'])->middleware('auth')->name('fund.store');
+    Route::get('/search', [FundController::class, 'search'])->name('funds.search');
 });
 
 // Authentication routes

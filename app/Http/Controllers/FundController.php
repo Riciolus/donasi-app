@@ -19,6 +19,18 @@ class FundController extends Controller
         //
     }
 
+    public function search(Request $request)
+    {
+        $query = $request->input('query');
+
+        $funds = Fund::where('title', 'LIKE', "%{$query}%")
+                ->orWhere('description', 'LIKE', "%{$query}%")
+                ->orWhere('category', 'LIKE', "%{$query}%")
+                ->get();
+
+        return view('layout.SearchFunds', compact('funds', 'query'));
+    }
+
     /**
      * Show the form for creating a new resource.
      */

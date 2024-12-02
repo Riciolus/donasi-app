@@ -62,12 +62,6 @@
                 </div>
             </div>
 
-            {{-- @if ($errors->any())
-                @foreach ($errors->all() as $error)
-                    <p style="color: red;">{{ $error }}</p>
-                @endforeach
-            @endif --}}
-
             {{-- Menu Saldo etc. --}}
             <div class="pb-5 border-b-2 ">
 
@@ -248,7 +242,7 @@
                 {{-- Topup --}}
                 <div class="mt-5 mx-3">
                     <button id="openTopupModal" type="submit"
-                        class="w-full bg-sky-400 py-1.5 rounded-md hover:bg-sky-600 transition-colors text-lg text-neutral-50 font-bold tracking-wide">Top
+                        class="w-full border-2 border-sky-400 text-sky-400 py-1.5 rounded-md hover:bg-sky-400 transition-colors text-lg hover:text-neutral-50 font-bold tracking-wide">Top
                         Up Saldo</button>
                 </div>
             </div>

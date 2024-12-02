@@ -202,7 +202,7 @@
             {{-- Card Slider Donasi --}}
             <div class=" bg-neutral-50 py-5">
                 <div class="mx-3">
-                    <h3 class="font-bold ">Pilihan Jumat Berkah</h3>
+                    <h3 class="font-bold ">Penggalangan Dana Mendesak</h3>
                 </div>
 
 
