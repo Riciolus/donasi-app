@@ -14,6 +14,7 @@ class Fund extends Model
 
     // Define which columns are mass assignable
     protected $fillable = [
+        'user_id',
         'title',
         'description',
         'goal_amount',

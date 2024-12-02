@@ -212,8 +212,8 @@
                         @foreach ($latestFunds as $fund)
                             <div class="min-w-56 rounded-xl shadow-md  shadow-neutral-200 md:max-w-full">
                                 <a href="{{ route('funds.detail', $fund->id) }}">
-                                    <img class="rounded-t-xl" src="{{ asset('storage/' . $fund->image_url) }}"
-                                        alt="">
+                                    <img class="rounded-t-xl h-[7.5rem] w-full"
+                                        src="{{ asset('storage/' . $fund->image_url) }}" alt="">
                                     <div class="text-sm flex flex-col p-2">
                                         <div class="flex justify-start items-center mt-1.5 gap-1">
                                             <span class="text-xs text-neutral-600 ">{{ $fund->user->name }}</span>

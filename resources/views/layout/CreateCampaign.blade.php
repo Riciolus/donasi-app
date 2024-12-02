@@ -40,12 +40,14 @@
         </div>
 
         <div class="mt-5 px-2">
-            <form action="" class="flex flex-col gap-3">
+            <form action="{{ route('fund.store') }}" method="POST" enctype="multipart/form-data"
+                class="flex flex-col gap-3">
+                @csrf
                 <div class="flex flex-col">
                     <label for="image">Foto Sampul*</label>
 
                     <div class="flex items-center justify-center w-full mt-2">
-                        <label for="dropzone-file"
+                        <label for="image"
                             class="flex flex-col items-center justify-center w-full h-32 border-2 border-gray-400 border-dashed rounded-lg cursor-pointer bg-gray-50  hover:bg-gray-100  ">
                             <div class="flex flex-col items-center justify-center pt-5 pb-6">
                                 <svg class="w-8 h-8 mb-4 text-gray-500 dark:text-gray-400" aria-hidden="true"
@@ -59,7 +61,7 @@
                                 <p class="text-xs text-gray-500 ">SVG, PNG, JPG or GIF (MAX.
                                     800x400px)</p>
                             </div>
-                            <input id="dropzone-file" type="file" class="hidden" />
+                            <input id="image" name="image" type="file" class="hidden" required />
                         </label>
                     </div>
 
@@ -72,10 +74,10 @@
                 </div>
 
                 <div class="flex flex-col border-b-2 border-gray-300 ">
-                    <label for="goal_ammount">Target Donasi*</label>
+                    <label for="goal_amount">Target Donasi*</label>
                     <div class="flex justify-start items-center gap-1 text-lg">
                         <span>Rp</span>
-                        <input type="text" name="goal_ammount" required class=" outline-none ps-0.5 ">
+                        <input type="text" name="goal_amount" required class=" outline-none ps-0.5 ">
 
                     </div>
                 </div>
@@ -83,11 +85,11 @@
                 <div class="flex flex-col">
                     <label for="category">Kategori*</label>
                     <select name="category" class="text-lg outline-none border-2 border-gray-300 p-1 rounded-md">
-                        <option value="volvo">Pendidikan</option>
-                        <option value="saab">Panti Asuhan</option>
-                        <option value="fiat">Anak & Bayi Sakit</option>
-                        <option value="audi">Kesehatan</option>
-                        <option value="audi">Bencana Alam</option>
+                        <option value="Pendidikan">Pendidikan</option>
+                        <option value="Panti Asuhan">Panti Asuhan</option>
+                        <option value="Anak & Bayi Sakit">Anak & Bayi Sakit</option>
+                        <option value="Kesehatan">Kesehatan</option>
+                        <option value="Bencana Alam">Bencana Alam</option>
                     </select>
                 </div>
 
@@ -96,6 +98,12 @@
                     <textarea name="description" required class="border-2 rounded-lg p-1 h-32 border-gray-300 outline-none mt-2  text-lg">
                     </textarea>
                 </div>
+
+                @if ($errors->any())
+                    @foreach ($errors->all() as $error)
+                        <p style="color: red;">{{ $error }}</p>
+                    @endforeach
+                @endif
 
                 <div class="mt-5">
                     <button type="submit"
