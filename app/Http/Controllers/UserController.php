@@ -22,15 +22,27 @@ class UserController extends Controller
     {
         $validatedData = $request->validate([
             'name' => 'required|min:3',
-            'email' => 'required|email',  
+            'email' => 'required|email',
             'password' => '',
+            'imageProfile' => 'image|mimes:jpeg,png,jpg,gif|max:2048'
         ]);
 
+        if ($request->hasFile('imageProfile')) {
+            $image = $request->file('imageProfile');
+            $imageName = time() . '_' . $image->getClientOriginalName();
+            $imagePath = $image->storeAs('public/profile', $imageName); // Store in storage/app/public/fund_images
+            $validatedData['imageProfile'] = 'profile/' . $imageName;
+        }
 
         $user = auth()->user();
         $user->name = $validatedData['name'];
         $user->email = $validatedData['email'];
         $user->password = bcrypt($validatedData['password']);
+        
+        if (isset($validatedData['imageProfile'])) {
+            $user->profile_image_url = $validatedData['imageProfile'];
+        }
+        
         $user->save();
         
         return redirect('/profile');
@@ -43,7 +55,6 @@ class UserController extends Controller
         ]);
         
         $amount = str_replace('.', '', $validatedData['addBalance']); // Remove dots
-
 
         $user = auth()->user();
         $user->balance += (int) $amount;

@@ -19,6 +19,7 @@
 </head>
 
 <body class="font-inter">
+
     <div class="bg-neutral-50 text-neutral-800">
         <div class="wrapper flex justify-center items-center bg-sky-400 h-16 ">
             <a href="/" class="ml-5">
@@ -37,9 +38,10 @@
 
         <div class="px-3 py-5">
             {{-- Profile --}}
-            <div class="flex items-center gap-3 px-3 border-b-2 pb-5">
-                <div class="relative w-16 h-16 min-w-16  rounded-full bg-neutral-700">
-                    {{-- <img src="" alt=""> --}}
+            <div class="flex items-center gap-4 px-3 border-b-2 pb-5">
+                <div class="rounded-full">
+                    <img class="w-16 h-16 min-w-16  rounded-full"
+                        src="{{ asset('storage/' . $user->profile_image_url) }}" alt="">
                 </div>
 
                 <div class="flex items-center justify-between w-full">
@@ -323,10 +325,20 @@
                     <h2 class="text-lg text-center font-bold ">Edit Profile</h2>
 
                     <div>
-                        <form action="{{ route('user.edit') }}" method="POST">
+                        <form action="{{ route('user.edit') }}" method="POST" enctype="multipart/form-data">
                             @csrf
                             <div class="flex flex-col gap-5 mt-3">
-                                <div class="flex flex-col">
+                                <div class="flex justify-center items-center ">
+                                    <label for="imageProfile">
+                                        <img id="imagePreview" class="w-16 h-16 min-w-16  rounded-full"
+                                            src="{{ asset('storage/' . $user->profile_image_url) }}" alt="">
+                                    </label>
+                                    <input class="hidden" id="imageProfile" name="imageProfile" type="file"
+                                        accept="image/*" onchange="previewImage(event)">
+                                </div>
+
+                                <div class="flex
+                                        flex-col">
                                     <label class="text-lg font-semibold" for="name">Nama</label>
                                     <input type="text" name="name" value="{{ $user->name }}"
                                         class="border-b-2 border-gray-300 text-xl py-1 outline-none ps-0.5">
@@ -426,6 +438,26 @@
 
     @vite('resources/js/editProfileModal.js')
     @vite('resources/js/topUpModal.js')
+
+    <script>
+        function previewImage(event) {
+            const input = event.target;
+            const preview = document.getElementById('imagePreview');
+
+            // Check if the file is selected
+            if (input.files && input.files[0]) {
+                const reader = new FileReader();
+
+                // Set up the file reader
+                reader.onload = function(e) {
+                    preview.src = e.target.result;
+                }
+
+                // Read the image file as a data URL
+                reader.readAsDataURL(input.files[0]);
+            }
+        }
+    </script>
 
 </body>
 
