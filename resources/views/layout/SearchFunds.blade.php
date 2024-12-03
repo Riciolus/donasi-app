@@ -2,17 +2,17 @@
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
 
 <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
 
     <title>DonasiKuy! - Campaign</title>
 
     <!-- Fonts -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
         href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Nunito:ital,wght@0,200..1000;1,200..1000&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap"
-        rel="stylesheet">
+        rel="stylesheet" />
 
     {{-- Connect CSS  --}}
     @vite('resources/css/app.css')
@@ -23,27 +23,27 @@
 
     <div class="">
         <div class="grid grid-cols-2 font-medium cursor-pointer">
-            <div class="flex justify-center  items-center py-5 px-2   border-b-2           border-b-sky-400">
+            <div id="funds-button" class="flex justify-center items-center py-5 px-2 border-b-2 border-b-sky-400">
                 <span>Penggalangan Dana</span>
             </div>
 
-            <div class="flex justify-center  items-center py-5 px-2   border-b-2 border-b-gray-300">
+            <div id="users-button" class="flex justify-center items-center py-5 px-2 border-b-2 border-b-gray-300">
                 <span>Organisasi/Individu</span>
             </div>
         </div>
 
-        <div class="px-5 pt-3">
+        <div class="px-5 pt-3" id="funds-section">
             @foreach ($funds as $fund)
                 <a class="grid grid-cols-2 gap-5 py-9" href="{{ route('funds.detail', $fund->id) }}">
                     <div class="flex justify-center items-center">
-                        <img class="rounded-md" src="{{ asset('storage/' . $fund->image_url) }}" alt="">
+                        <img class="rounded-md" src="{{ asset('storage/' . $fund->image_url) }}" alt="" />
                     </div>
                     <div class="flex justify-center items-center">
                         <div>
                             <div class="text-sm flex flex-col">
                                 <span class="font-semibold tracking-tight leading-4">{{ $fund->title }}</span>
                                 <div class="flex items-center h-fit justify-start gap-1 mt-1.5">
-                                    <span class="text-xs text-neutral-600 ">{{ $fund->user->name }}</span>
+                                    <span class="text-xs text-neutral-600">{{ $fund->user->name }}</span>
                                     <svg class="w-3 h-3" width="100%" height="100%" viewBox="0 0 24 24"
                                         fill="none" xmlns="http://www.w3.org/2000/svg">
                                         <path class="fill-cyan-400" fill-rule="evenodd" clip-rule="evenodd"
@@ -53,13 +53,10 @@
                                 </div>
                             </div>
 
-                            @php
-                                $progressPercentage = ($fund->collected_amount / $fund->goal_amount) * 100;
-                            @endphp
+                            @php $progressPercentage = ($fund->collected_amount / $fund->goal_amount) * 100; @endphp
                             <div class="bg-gray-200 rounded-full h-1.5 mt-2">
                                 <div class="bg-sky-500 h-1.5 rounded-full"
-                                    style="width: {{ min($progressPercentage, 100) }}%;">
-                                </div>
+                                    style="width: {{ min($progressPercentage, 100) }}%;"></div>
                             </div>
 
                             <div class="mt-3 flex flex-col gap-1.5">
@@ -72,5 +69,48 @@
                 </a>
             @endforeach
         </div>
+
+        <div class="px-5 pt-3 hidden" id="users-section">
+            @foreach ($users as $user)
+                <a class="flex gap-4 py-5 items-center" href="">
+                    <div class="relative w-16 h-16 bg-black rounded-full flex justify-center items-center">
+                        <img class="rounded-md" src="{{ asset('storage/' . $user->profile_image_url) }}"
+                            alt="" />
+                    </div>
+                    <div>
+                        <span class="font-semibold">
+                            {{ $user->name }}
+                        </span>
+                    </div>
+                </a>
+            @endforeach
+        </div>
     </div>
+
+    <script>
+        const fundsButton = document.getElementById("funds-button");
+        const usersButton = document.getElementById("users-button");
+        const fundsSection = document.getElementById("funds-section");
+        const usersSection = document.getElementById("users-section");
+
+        fundsButton.addEventListener("click", () => {
+            fundsSection.classList.remove("hidden");
+            usersSection.classList.add("hidden");
+            fundsButton.classList.add("border-b-sky-400");
+            usersButton.classList.remove("border-b-sky-400");
+            fundsButton.classList.remove("border-b-gray-300");
+            usersButton.classList.add("border-b-gray-300");
+        });
+
+        usersButton.addEventListener("click", () => {
+            usersSection.classList.remove("hidden");
+            fundsSection.classList.add("hidden");
+            usersButton.classList.add("border-b-sky-400");
+            fundsButton.classList.remove("border-b-sky-400");
+            usersButton.classList.remove("border-b-gray-300");
+            fundsButton.classList.add("border-b-gray-300");
+        });
+    </script>
 </body>
+
+</html>

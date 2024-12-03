@@ -28,7 +28,11 @@ class FundController extends Controller
                 ->orWhere('category', 'LIKE', "%{$query}%")
                 ->get();
 
-        return view('layout.SearchFunds', compact('funds', 'query'));
+        $users = User::where('name', 'LIKE', "%{$query}%")
+                ->orWhere('email', 'LIKE', "%{$query}%")
+                ->get();
+
+        return view('layout.SearchFunds', compact('funds', 'query', 'users'));
     }
 
     /**
@@ -44,8 +48,6 @@ class FundController extends Controller
      */
     public function store(Request $request)
 {
-    // dd($request);
-
     $validatedData = $request->validate([
         'title' =>  'required',
         'description' =>  '',
