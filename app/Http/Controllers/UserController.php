@@ -37,10 +37,13 @@ class UserController extends Controller
         $user = auth()->user();
         $user->name = $validatedData['name'];
         $user->email = $validatedData['email'];
-        $user->password = bcrypt($validatedData['password']);
         
         if (isset($validatedData['imageProfile'])) {
             $user->profile_image_url = $validatedData['imageProfile'];
+        }
+
+        if (isset($validatedData['password'])) {
+            $user->password = bcrypt($validatedData['password']);
         }
         
         $user->save();

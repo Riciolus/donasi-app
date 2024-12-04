@@ -111,6 +111,8 @@ class FundController extends Controller
      */
     public function show(string $id)
     {
+        $userId = auth()->id();
+
         $fund = Fund::with(['user', 'contributions' => function($query) {
             $query->latest()->take(3);
         }])->findOrFail($id);
@@ -120,8 +122,9 @@ class FundController extends Controller
         })->count();
 
         $totalContributors = $fund->contributions->unique('user_id')->count();
+
         
-        return view('layout.detailCampaign', compact('fund', 'totalContributors', 'recentNews'));
+        return view('layout.detailCampaign', compact('fund', 'totalContributors', 'recentNews', 'userId'));
     }
 
     /**

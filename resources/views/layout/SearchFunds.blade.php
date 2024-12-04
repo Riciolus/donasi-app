@@ -73,8 +73,8 @@
         <div class="px-5 pt-3 hidden" id="users-section">
             @foreach ($users as $user)
                 <a class="flex gap-4 py-5 items-center" href="">
-                    <div class="relative w-16 h-16 bg-black rounded-full flex justify-center items-center">
-                        <img class="rounded-md" src="{{ asset('storage/' . $user->profile_image_url) }}"
+                    <div class="rounded-full flex justify-center items-center">
+                        <img class="rounded-full w-16 h-16" src="{{ asset('storage/' . $user->profile_image_url) }}"
                             alt="" />
                     </div>
                     <div>

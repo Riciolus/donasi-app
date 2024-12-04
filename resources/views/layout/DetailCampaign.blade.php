@@ -253,17 +253,24 @@
 
         {{-- Start Donation Button --}}
         <div class="fixed bottom-0 left-0 w-full">
-            <div class="bg-neutral-200 flex justify-center items-center p-3">
-                @if (Auth::check())
-                    <button id="openFormModal" class="w-full py-2 rounded-md text-neutral-50 font-bold bg-pink-600">
-                        Donasi Sekarang
+            <div class="bg-neutral-200 flex justify-center items-center p-5">
+                @if ($fund->user_id === $userId)
+                    <button id="openFormModal" class="w-full py-2 rounded-md text-neutral-50 font-bold bg-blue-600">
+                        Cairkan Dana
                     </button>
                 @else
-                    <a href="{{ url('auth/login') }}" class="w-full">
-                        <button class="w-full py-2 rounded-md text-neutral-50 font-bold bg-pink-600">
+                    @if (Auth::check())
+                        <button id="openFormModal"
+                            class="w-full py-2 rounded-md text-neutral-50 font-bold bg-pink-600">
                             Donasi Sekarang
                         </button>
-                    </a>
+                    @else
+                        <a href="{{ url('auth/login') }}" class="w-full">
+                            <button class="w-full py-2 rounded-md text-neutral-50 font-bold bg-pink-600">
+                                Donasi Sekarang
+                            </button>
+                        </a>
+                    @endif
                 @endif
             </div>
         </div>
