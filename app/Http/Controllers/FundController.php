@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Contribution;
 use App\Models\Fund;
 use App\Models\User;
+use App\Models\Withdrawal;
 use Auth;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
@@ -123,13 +124,49 @@ class FundController extends Controller
 
         $totalContributors = $fund->contributions->unique('user_id')->count();
 
-        
-        return view('layout.detailCampaign', compact('fund', 'totalContributors', 'recentNews', 'userId'));
+        $withdrawals = Withdrawal::where('fund_id', $id)->count();
+
+
+        return view('layout.detailCampaign', compact('fund', 'totalContributors', 'recentNews', 'userId', 'withdrawals'));
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
+    public function withdrawal(Request $request, $id)
+    {
+    // Preprocess the amount: remove commas or dots before validating
+    $request->merge([
+        'amount' => intval(str_replace(['.', ','], '', $request->input('amount'))),
+    ]);
+
+    // Now validate the cleaned amount
+    $validatedData = $request->validate([
+        'amount' => 'required|numeric|min:100000',
+    ]);
+
+    // Find the fund
+    $fund = Fund::findOrFail($id);
+
+    // Check for sufficient balance
+    if ($fund->collected_amount < $validatedData['amount']) {
+        return back()->with('error', 'Insufficient funds.');
+    }
+
+    // Deduct the amount from the fund's balance
+    $fund->collected_amount -= $validatedData['amount'];
+    $fund->save();
+    
+
+    // Create a new withdrawal record
+    Withdrawal::create([
+        'user_id' => auth()->id(),
+        'fund_id' => $fund->id,
+        'amount' => $validatedData['amount'],
+        'status' => 'pending',
+    ]);
+
+    return redirect()->back()->with('success', 'Withdrawal request submitted successfully.');
+}
+
+
     public function edit(string $id)
     {
         //

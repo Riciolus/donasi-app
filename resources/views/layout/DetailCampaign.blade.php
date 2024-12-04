@@ -37,6 +37,8 @@
             <img class="w-full" src="{{ asset('storage/' . $fund->image_url) }}" alt="">
         </div>
 
+
+
         <div class=" bg-gray-100">
 
             {{-- Main Information --}}
@@ -136,7 +138,7 @@
                                         fill="#080341" />
                                 </svg>
                             </div>
-                            <span class="font-bold">8 Kali</span>
+                            <span class="font-bold">{{ $withdrawals }} Kali</span>
                         </div>
                         <span class="flex justify-center items-center font-medium mt-2 text-sm">Pencairan
                             Dana</span>
@@ -255,7 +257,8 @@
         <div class="fixed bottom-0 left-0 w-full">
             <div class="bg-neutral-200 flex justify-center items-center p-5">
                 @if ($fund->user_id === $userId)
-                    <button id="openFormModal" class="w-full py-2 rounded-md text-neutral-50 font-bold bg-blue-600">
+                    <button id="openWithdrawalModal"
+                        class="w-full py-2 rounded-md text-neutral-50 font-bold bg-blue-600">
                         Cairkan Dana
                     </button>
                 @else
@@ -601,6 +604,61 @@
                 </button>
             </div>
         </div>
+
+        <!-- Withdrawal Modal ) -->
+        <div id="withdrawal-form"
+            class="fixed inset-0 text-neutral-700 bg-black bg-opacity-50 justify-center flex items-end">
+            <div class="bg-neutral-50 px-3 pt-5 rounded-t-lg w-full max-w-md h-1/2 transform translate-y-full transition-transform duration-300"
+                id="withdrawal-content">
+                <h2 class="text-lg text-center font-bold ">Pilih Nominal Pencairan Dana</h2>
+
+                <form id="withdrawalForm" action="{{ route('fund.withdrawal', $fund->id) }}" method="POST">
+                    @csrf
+
+                    <div class="border py-2 px-3 mt-5 border-gray-300 rounded-md">
+                        <div class="flex items-center bg-neutral-200 bg-opacity-50 rounded-md mt-4">
+                            <h2 class="ml-4 text-2xl font-bold">Rp</h2>
+                            <input type="text" id="numberInputWithdrawal" name="amount"
+                                class="py-2 w-full text-right text-3xl font-bold bg-transparent outline-none rounded-md placeholder:text-neutral-600 pe-3"
+                                placeholder="0">
+                        </div>
+                        <div class="mt-3 ">
+                            <span class="text-sm{{ $errors->has('amount') ? 'text-red-500' : '' }}">Min. penarikan
+                                sebesar Rp100.000</span>
+                            @if ($errors->any())
+                                <div style="color: red;">
+                                    @foreach ($errors->all() as $error)
+                                        <p class="mt-1">{{ $error }}</p>
+                                    @endforeach
+                                </div>
+                            @endif
+                        </div>
+                    </div>
+
+
+
+                    <div>
+                        <button type="submit"
+                            class="w-full bg-blue-400 py-2 rounded-md mt-3 text-lg text-neutral-50 font-bold tracking-wide">Cairkan</button>
+                    </div>
+                </form>
+
+
+
+
+                {{-- Close Modal button --}}
+                <button id="closeWithdrawalModal" class="absolute top-2 right-4 mt-3 ">
+                    <svg class="w-5 h-5" width="100%" height="100%" viewBox="0 0 24 24" fill="none"
+                        xmlns="http://www.w3.org/2000/svg">
+                        <path
+                            d="M20.7457 3.32851C20.3552 2.93798 19.722 2.93798 19.3315 3.32851L12.0371 10.6229L4.74275 3.32851C4.35223 2.93798 3.71906 2.93798 3.32854 3.32851C2.93801 3.71903 2.93801 4.3522 3.32854 4.74272L10.6229 12.0371L3.32856 19.3314C2.93803 19.722 2.93803 20.3551 3.32856 20.7457C3.71908 21.1362 4.35225 21.1362 4.74277 20.7457L12.0371 13.4513L19.3315 20.7457C19.722 21.1362 20.3552 21.1362 20.7457 20.7457C21.1362 20.3551 21.1362 19.722 20.7457 19.3315L13.4513 12.0371L20.7457 4.74272C21.1362 4.3522 21.1362 3.71903 20.7457 3.32851Z"
+                            fill="#0F0F0F" />
+                    </svg>
+                </button>
+            </div>
+        </div>
+
+
 
 
 

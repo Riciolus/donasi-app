@@ -4,15 +4,41 @@ document.addEventListener("DOMContentLoaded", function () {
     const modal = document.getElementById("donate-form");
     const modalContent = document.getElementById("modal-content");
 
+    const openWithdrawalBtn = document.getElementById("openWithdrawalModal");
+    const closeWithdrawalBtn = document.getElementById("closeWithdrawalModal");
+    const withdrawalModal = document.getElementById("withdrawal-form");
+    const withdrawalContent = document.getElementById("withdrawal-content");
+
     modal.classList.add("hidden");
+    withdrawalModal.classList.add("hidden");
+
+    openWithdrawalBtn &&
+        openWithdrawalBtn.addEventListener("click", () => {
+            withdrawalModal.classList.remove("hidden"); // Show modal container
+            setTimeout(() => {
+                withdrawalContent.classList.remove("translate-y-full"); // Animate content into view
+            }, 10); // Delay to allow DOM changes
+        });
+
+    closeWithdrawalBtn.addEventListener("click", () => {
+        withdrawalContent.classList.add("translate-y-full"); // Animate content out of view
+        withdrawalContent.addEventListener(
+            "transitionend",
+            () => {
+                withdrawalModal.classList.add("hidden"); // Hide the modal after transition ends
+            },
+            { once: true } // Ensure this event only triggers once
+        );
+    });
 
     // Open Modal
-    openModalBtn.addEventListener("click", () => {
-        modal.classList.remove("hidden");
-        setTimeout(() => {
-            modalContent.classList.remove("translate-y-full");
-        }, 10); // Delay to allow DOM changes
-    });
+    openModalBtn &&
+        openModalBtn.addEventListener("click", () => {
+            modal.classList.remove("hidden");
+            setTimeout(() => {
+                modalContent.classList.remove("translate-y-full");
+            }, 10); // Delay to allow DOM changes
+        });
 
     // Close Modal
     closeModalBtn.addEventListener("click", () => {
@@ -40,6 +66,14 @@ document.getElementById("numberInput").addEventListener("input", function (e) {
     value = Number(value).toLocaleString("id-ID"); // Format using Indonesian locale
     e.target.value = value;
 });
+
+document
+    .getElementById("numberInputWithdrawal")
+    .addEventListener("input", function (e) {
+        let value = e.target.value.replace(/\./g, ""); // Remove existing dots
+        value = Number(value).toLocaleString("id-ID"); // Format using Indonesian locale
+        e.target.value = value;
+    });
 
 document.querySelectorAll(".shortcutButton").forEach(function (button) {
     button.addEventListener("click", function () {

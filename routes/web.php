@@ -16,6 +16,7 @@ Route::get('/', [MainController::class, 'index']);
 Route::prefix('funds')->group(function () {
     Route::get('/campaign/{id}', [FundController::class, 'show'])->name('funds.detail');
     Route::post('/{id}/contribute', [FundController::class, 'contribute'])->middleware('auth')->name('fund.contribute');
+    Route::post('/{id}/withdrawal', [FundController::class, 'withdrawal'])->middleware('auth')->name('fund.withdrawal');
     Route::get('/create', [FundController::class, 'create'])->middleware('auth')->name('fund.create');
     Route::post('/create', [FundController::class, 'store'])->middleware('auth')->name('fund.store');
     Route::get('/search', [FundController::class, 'search'])->name('funds.search');
