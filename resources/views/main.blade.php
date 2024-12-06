@@ -14,10 +14,27 @@
         href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Nunito:ital,wght@0,200..1000;1,200..1000&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap"
         rel="stylesheet">
 
+    <!-- SweetAlert2 -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+
     @vite('resources/css/app.css')
 </head>
 
 <body class="antialiased font-inter  bg-neutral-50 text-neutral-700">
+
+    {{-- toast --}}
+    {{-- <div id="toast"
+        class="z-50 fixed top-16 right-1 bg-sky-100 border border-neutral-400 text-sky-800 font-medium px-4 py-1 rounded-xl shadow-md transition-opacity duration-300 ">
+        <span id="toast-message">Donasi Berhasil dihapus!</span>
+    </div> --}}
+
+    <div id="toast"
+        class="z-50 hidden fixed top-16 right-[-300px] bg-sky-100 text-sky-800 px-4 font-medium py-1 rounded-xl shadow-md transform transition-transform duration-300">
+        <span id="toast-message"></span>
+    </div>
+
 
     @include('/layout/navigationBar')
 
@@ -28,6 +45,11 @@
         <div class="absolute bg-sky-400 top-0 -z-10 rounded-b-[2rem] h-56 flex flex-col justify-end">
             <img src="{{ asset('assets/interface/bg-hero.webp') }}" class="" alt="">
         </div>
+
+
+
+
+
 
         {{-- Menu Saldo etc. --}}
         <div class="shadow-md rounded-md  border  py-2 text-sm mx-3 md:mx-24 bg-neutral-100">
@@ -803,6 +825,35 @@
 
 
     </div>
+
+    @if (session('success'))
+        <script>
+            document.addEventListener('DOMContentLoaded', function() {
+                // Get the toast element
+                const toast = document.getElementById('toast');
+                const toastMessage = document.getElementById('toast-message');
+
+                // Set the success message
+                toastMessage.textContent = "{{ session('success') }}";
+
+                // Add a slight delay to make the toast load after the page render
+                setTimeout(() => {
+                    toast.classList.remove('hidden');
+                    toast.classList.remove('right-[-300px]');
+                    toast.classList.add('right-5'); // Slide in
+                }, 200); // 200ms delay
+
+                // Hide the toast after 3 seconds with a slide-out effect
+                setTimeout(() => {
+                    toast.classList.remove('right-5');
+                    toast.classList.add('right-[-300px]'); // Slide out
+                    setTimeout(() => toast.classList.add('hidden'), 300); // Wait for animation
+                }, 3200); // 3 seconds + 200ms delay
+            });
+        </script>
+    @endif
+
+
 
     <script>
         let currentSlide = 0;

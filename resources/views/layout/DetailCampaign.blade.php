@@ -257,10 +257,21 @@
         <div class="fixed bottom-0 left-0 w-full">
             <div class="bg-neutral-200 flex justify-center items-center p-5">
                 @if ($fund->user_id === $userId)
-                    <button id="openWithdrawalModal"
-                        class="w-full py-2 rounded-md text-neutral-50 font-bold bg-blue-600">
-                        Cairkan Dana
-                    </button>
+                    <div class="grid grid-cols-2 gap-3 w-full">
+                        <button id="openWithdrawalModal"
+                            class="w-full py-2 rounded-md text-neutral-50 font-bold bg-blue-500">
+                            Cairkan Dana
+                        </button>
+                        <form action="{{ route('fund.delete', $fund->id) }}" method="POST">
+                            @csrf
+                            @method('DELETE')
+                            <button type="submit"
+                                class="w-full py-2 rounded-md text-neutral-50 font-bold bg-red-400">
+                                Hapus Donasi
+                            </button>
+                        </form>
+
+                    </div>
                 @else
                     @if (Auth::check())
                         <button id="openFormModal"

@@ -312,7 +312,7 @@
                 <form action="{{ route('logout') }}" method="POST">
                     @csrf
                     <button type="submit"
-                        class="w-full bg-pink-400 py-2 mt-5 rounded-lg text-lg text-neutral-50 font-semibold">Keluar
+                        class="w-full bg-pink-400 hover:bg-gradient-to-t hover:from-pink-400 hover:to-red-400 transition-colors py-2 mt-5 rounded-lg text-lg text-neutral-50 font-semibold">Keluar
                     </button>
                 </form>
             </div>
