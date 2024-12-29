@@ -1,10 +1,15 @@
-<nav class="wrapper flex justify-center items-center  bg-sky-400 h-16">
+<nav class="wrapper md:fixed md:w-full z-50 flex justify-center items-center  bg-sky-400 h-16">
     <div class="container flex justify-between items-center gap-3 px-2">
 
+        <div class="hidden md:flex justify-center items-center gap-1">
+            <img class="w-9" src="{{ asset('assets/icons/favicon.png') }}" alt="">
+            <h3 class="text-neutral-50 font-semibold">DonasiKuy</h3>
+        </div>
+
         {{-- Left Side Content -> Searchbar --}}
-        <div class="w-full">
+        <div class="w-full md:w-1/4 md:text-sm">
             <form action="{{ route('funds.search') }}" method="GET">
-                <div class="relative">
+                <div class="relative ">
                     <div class="absolute inset-y-0 right-3">
                         <svg class="w-5" width="100%" height="100%" viewBox="0 0 24 24" fill="none"
                             xmlns="http://www.w3.org/2000/svg">

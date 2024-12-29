@@ -21,7 +21,7 @@
 <body class="font-inter">
 
     <div class="bg-neutral-50 text-neutral-800">
-        <div class="wrapper flex justify-center items-center bg-sky-400 h-16 ">
+        <nav class="wrapper flex justify-center items-center bg-sky-400 h-16 ">
             <a href="/" class="ml-5">
                 <svg class="fill-neutral-50 w-5 h-5" version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg"
                     xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 330 330" xml:space="preserve">
@@ -34,9 +34,9 @@
             <div class="container flex justify-between items-center gap-3 px-5">
                 <span class="text-neutral-50 font-semibold text-lg">Akun</span>
             </div>
-        </div>
+        </nav>
 
-        <div class="px-3 py-5">
+        <div class="px-3 py-5 md:mx-56  ">
             {{-- Profile --}}
             <div class="flex items-center gap-4 px-3 border-b-2 pb-5">
                 <div class="rounded-full">
@@ -242,9 +242,9 @@
                 </div>
 
                 {{-- Topup --}}
-                <div class="mt-5 mx-3">
+                <div class="mt-5 mx-3 md:flex md:justify-center md:items-center">
                     <button id="openTopupModal" type="submit"
-                        class="w-full border-2 border-sky-400 text-sky-400 py-1.5 rounded-md hover:bg-sky-400 transition-colors text-lg hover:text-neutral-50 font-bold tracking-wide">Top
+                        class="w-full border-2 md:w-1/2  border-sky-400  text-sky-400 py-1.5 rounded-md hover:bg-sky-400 transition-colors text-lg hover:text-neutral-50 font-bold tracking-wide">Top
                         Up Saldo</button>
                 </div>
             </div>
@@ -308,11 +308,12 @@
                 </div>
             </div>
 
-            <div>
-                <form action="{{ route('logout') }}" method="POST">
+            <div class="md:mt-3">
+                <form action="{{ route('logout') }}" method="POST"
+                    class="md:flex md:justify-center md:items-center">
                     @csrf
                     <button type="submit"
-                        class="w-full bg-pink-400 hover:bg-gradient-to-t hover:from-pink-400 hover:to-red-400 transition-colors py-2 mt-5 rounded-lg text-lg text-neutral-50 font-semibold">Keluar
+                        class="w-full md:w-1/2 bg-pink-400 hover:bg-gradient-to-t hover:from-pink-400 hover:to-red-400 transition-colors py-2 mt-5 rounded-lg text-lg text-neutral-50 font-semibold">Keluar
                     </button>
                 </form>
             </div>
@@ -320,14 +321,14 @@
             <!-- Edit Modal ) -->
             <div id="edit-form"
                 class="fixed inset-0 text-neutral-700 bg-black bg-opacity-50 justify-center flex items-end">
-                <div class="bg-neutral-50 px-3 pt-5 rounded-t-lg w-full max-w-md h-[60%] transform translate-y-full  transition-transform duration-300"
+                <div class="bg-neutral-50  px-3 pt-5 rounded-t-lg md:rounded-t-2xl w-full h-[60%] transform translate-y-full  transition-transform duration-300"
                     id="modal-content">
                     <h2 class="text-lg text-center font-bold ">Edit Profile</h2>
 
-                    <div>
+                    <div class="md:mx-[26vw]">
                         <form action="{{ route('user.edit') }}" method="POST" enctype="multipart/form-data">
                             @csrf
-                            <div class="flex flex-col gap-5 mt-3">
+                            <div class="flex flex-col gap-5 mt-3 md:mt-2">
                                 <div class="flex justify-center items-center ">
                                     <label for="imageProfile">
                                         <img id="imagePreview" class="w-16 h-16 min-w-16  rounded-full"
@@ -357,9 +358,9 @@
                                 </div>
                             </div>
 
-                            <div class="mt-5">
+                            <div class="mt-5 md:mt-0 md:flex md:justify-center">
                                 <button type="submit"
-                                    class="w-full bg-pink-400 py-2 hover:bg-pink-600 transition-colors rounded-md mt-3 text-lg text-neutral-50 font-bold tracking-wide">Submit</button>
+                                    class="w-full md:w-3/4 bg-pink-400 py-2 hover:bg-pink-600 transition-colors rounded-md mt-3 text-lg text-neutral-50 font-bold tracking-wide">Submit</button>
                             </div>
                         </form>
                     </div>

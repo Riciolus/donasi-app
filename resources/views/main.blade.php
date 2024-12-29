@@ -18,41 +18,31 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
-
     @vite('resources/css/app.css')
 </head>
 
 <body class="antialiased font-inter  bg-neutral-50 text-neutral-700">
 
-    {{-- toast --}}
-    {{-- <div id="toast"
-        class="z-50 fixed top-16 right-1 bg-sky-100 border border-neutral-400 text-sky-800 font-medium px-4 py-1 rounded-xl shadow-md transition-opacity duration-300 ">
-        <span id="toast-message">Donasi Berhasil dihapus!</span>
-    </div> --}}
-
+    {{-- Notifikasi --}}
     <div id="toast"
         class="z-50 hidden fixed top-16 right-[-300px] bg-sky-100 text-sky-800 px-4 font-medium py-1 rounded-xl shadow-md transform transition-transform duration-300">
         <span id="toast-message"></span>
     </div>
 
-
+    {{-- Navbar --}}
     @include('/layout/navigationBar')
 
 
-    {{-- Giving a global styling (padding, margin...) for all components --}}
-    <div class="relative page-wrapper md:mx-52 pt-48">
+    {{-- Wrapper --}}
+    <div class="relative page-wrapper md:mx-56 pt-48 md:pt-52">
 
-        <div class="absolute bg-sky-400 top-0 -z-10 rounded-b-[2rem] h-56 flex flex-col justify-end">
-            <img src="{{ asset('assets/interface/bg-hero.webp') }}" class="" alt="">
+        <div class="absolute bg-sky-400 top-0 -z-10 rounded-b-[2rem] md:w-full h-56 md:h-64 flex flex-col justify-end">
+            <img src="{{ asset('assets/interface/bg-hero.webp') }}" class="md:w-full md:h-full  md:object-cover"
+                alt="">
         </div>
 
-
-
-
-
-
         {{-- Menu Saldo etc. --}}
-        <div class="shadow-md rounded-md  border  py-2 text-sm mx-3 md:mx-24 bg-neutral-100">
+        <div class="shadow-md rounded-md  border  py-2 md:mb-3 text-sm mx-3 md:mx-24 bg-neutral-100">
             <div class="flex">
                 <div class="flex gap-1 ml-2 w-1/2 border-r border-neutral-400">
                     <svg class="w-10 h-10" width="100%" height="100%" viewBox="0 0 1024 1024" class="icon"
@@ -219,10 +209,11 @@
 
         <div class="bg-gray-100">
             {{-- Card Slider Event --}}
+            {{-- ???? --}}
 
 
             {{-- Card Slider Donasi --}}
-            <div class=" bg-neutral-50 py-5">
+            <div class=" bg-neutral-50 py-5 md:px-5 md:py-10">
                 <div class="mx-3">
                     <h3 class="font-bold ">Penggalangan Dana Mendesak</h3>
                 </div>
@@ -230,9 +221,10 @@
 
                 @if ($latestFunds->count())
                     <div
-                        class="flex md:justify-center md:items-center  ml-3 md:ml-0 mt-3 pb-1 gap-3 md:gap-5 overflow-x-auto scroll-smooth ">
+                        class="flex md:justify-start md:items-center w-full md:px-1 ml-3 md:ml-0 mt-3 pb-1 gap-3 md:gap-5 overflow-x-scroll scroll-smooth ">
                         @foreach ($latestFunds as $fund)
-                            <div class="min-w-56 rounded-xl shadow-md  shadow-neutral-200 md:max-w-full">
+                            <div
+                                class="min-w-56 rounded-xl shadow-md  border  bg-neutral-50 shadow-neutral-200 md:max-w-full">
                                 <a href="{{ route('funds.detail', $fund->id) }}">
                                     <img class="rounded-t-xl h-[7.5rem] w-full"
                                         src="{{ asset('storage/' . $fund->image_url) }}" alt="">
@@ -273,18 +265,18 @@
             </div>
 
             {{-- Image Slider --}}
-            <div class="bg-neutral-50 py-5 mt-3">
+            <div class="bg-neutral-50 py-5 md:px-5 mt-3">
                 <div class="mx-3 ">
                     <h3 class="font-bold">Rekomendasi Donasi</h3>
                 </div>
 
-                <div class="relative w-full overflow-hidden mt-3">
-                    <div id="slider" class="flex transition-transform duration-500 ease-in-out">
+                <div class="relative w-full  overflow-hidden mt-3">
+                    <div id="slider" class="flex transition-transform  duration-500 ease-in-out">
                         @foreach ($recommendationFunds as $fund)
-                            <div class="w-full flex-shrink-0">
+                            <div class="w-full flex-shrink-0 ">
                                 <a href="{{ route('funds.detail', $fund->id) }}">
                                     <img src="{{ asset('storage/' . $fund->image_url) }}"
-                                        class="w-full max-w-full object-cover rounded-lg">
+                                        class="w-full max-w-full md:h-96 object-contain rounded-lg">
                                 </a>
                             </div>
                         @endforeach
@@ -304,19 +296,20 @@
             </div>
 
 
-            <div class="bg-neutral-50 py-5 mt-3">
+            <div class="bg-neutral-50 py-5 md:px-5 mt-3">
                 <div class="mx-3 ">
                     <h3 class="font-bold">Program Spesial DonasiKuy</h3>
                 </div>
 
                 @if ($oldestFunds->count())
                     <div
-                        class="flex md:justify-center md:items-center  ml-3 md:ml-0 mt-3 pb-1 gap-3 md:gap-5 overflow-x-auto scroll-smooth ">
+                        class="flex md:justify-start md:items-center  w-full md:px-1 ml-3 md:ml-0 mt-3 pb-1 gap-3 md:gap-5 overflow-x-scroll scroll-smooth ">
                         @foreach ($oldestFunds as $fund)
-                            <div class="min-w-56 rounded-xl shadow-md  shadow-neutral-200 md:max-w-full">
+                            <div
+                                class="min-w-56 rounded-xl shadow-md border  bg-neutral-50 shadow-neutral-200 md:max-w-full">
                                 <a href="{{ route('funds.detail', $fund->id) }}">
-                                    <img class="rounded-t-xl" src="{{ asset('storage/' . $fund->image_url) }}"
-                                        alt="">
+                                    <img class="rounded-t-xl h-[7.5rem] w-full"
+                                        src="{{ asset('storage/' . $fund->image_url) }}" alt="">
                                     <div class="text-sm flex flex-col p-2">
                                         <div class="flex justify-start items-center mt-1.5 gap-1">
                                             <span class="text-xs text-neutral-600 ">{{ $fund->user->name }}</span>
@@ -353,19 +346,20 @@
                 @endif
             </div>
 
-            <div class="bg-neutral-50 py-5 mt-3">
+            <div class="bg-neutral-50 py-5 md:px-5 mt-3">
                 <div class="mx-3 ">
                     <h3 class="font-bold">Pilihan DonasiKuy</h3>
                 </div>
 
                 @if ($randomFunds->count())
                     <div
-                        class="flex md:justify-center md:items-center  ml-3 md:ml-0 mt-3 pb-1 gap-3 md:gap-5 overflow-x-auto scroll-smooth ">
+                        class="flex md:justify-start md:items-center w-full md:px-1 ml-3 md:ml-0 mt-3 pb-1 gap-3 md:gap-5 overflow-x-scroll scroll-smooth ">
                         @foreach ($randomFunds as $fund)
-                            <div class="min-w-56 rounded-xl shadow-md  shadow-neutral-200 md:max-w-full">
+                            <div
+                                class="min-w-56 rounded-xl shadow-md border  bg-neutral-50 shadow-neutral-200 md:max-w-full">
                                 <a href="{{ route('funds.detail', $fund->id) }}">
-                                    <img class="rounded-t-xl" src="{{ asset('storage/' . $fund->image_url) }}"
-                                        alt="">
+                                    <img class="rounded-t-xl h-[7.5rem] w-full"
+                                        src="{{ asset('storage/' . $fund->image_url) }}" alt="">
                                     <div class="text-sm flex flex-col p-2">
                                         <div class="flex justify-start items-center mt-1.5 gap-1">
                                             <span class="text-xs text-neutral-600 ">{{ $fund->user->name }}</span>
@@ -403,12 +397,12 @@
             </div>
 
             {{-- Kategori --}}
-            <div class="bg-neutral-50 py-5 mt-3 px-3">
+            <div class="bg-neutral-50 py-5 md:px-5 mt-3 px-3">
                 <div>
                     <h3 class="font-bold">Pilih Kategori Favoritmu</h3>
                 </div>
 
-                <div class="category-buttons py-5 grid grid-cols-4 ">
+                <div class="category-buttons py-5 grid grid-cols-4 md:w-fit  md:place-self-center ">
 
                     {{-- Bencana Alam --}}
                     <button id=".category-btn" onclick="showCategory('Bencana Alam')"
@@ -651,80 +645,86 @@
 
             <!-- Category Content Divs -->
 
-            <div class="bg-sky-100 bg-opacity-95 border-b  pt-5">
+            <div class="md:px-5 bg-neutral-50">
+                <div class="bg-sky-100 bg-opacity-95 border-b md:rounded-xl  pt-5">
 
-                <span
-                    class="bg-pink-400/90 px-2 mx-3 py-1  text-xs rounded-lg tracking-tight font-bold text-neutral-50">
-                    REKOMENDASI
-                </span>
+                    <span
+                        class="bg-pink-400/90 px-2 mx-3 py-1  text-xs rounded-lg tracking-tight font-bold text-neutral-50">
+                        REKOMENDASI
+                    </span>
 
-                @foreach ($fundsByCategory as $category => $funds)
-                    <div id="{{ $category }}" class="category-content px-3" style="display: none;">
+                    @foreach ($fundsByCategory as $category => $funds)
+                        <div id="{{ $category }}" class="category-content px-3 md:px-0    "
+                            style="display: none;">
 
-                        @foreach ($funds as $fund)
-                            <a class="grid grid-cols-2 gap-3 border-b border-neutral-200 py-7"
-                                href="{{ route('funds.detail', $fund->id) }}">
-                                <div class="flex justify-center items-center">
-                                    <img class="rounded-md" src="{{ asset('storage/' . $fund->image_url) }}"
-                                        alt="">
-                                </div>
-                                <div class="flex justify-center items-center">
-                                    <div>
-                                        <div class="text-sm flex flex-col">
-                                            <span
-                                                class="font-semibold tracking-tight leading-4">{{ $fund->title }}</span>
-                                            <div class="flex items-center h-fit justify-start gap-1 mt-1.5">
-                                                <span class="text-xs text-neutral-600 ">{{ $fund->user->name }}</span>
-                                                <svg class="w-3 h-3" width="100%" height="100%"
-                                                    viewBox="0 0 24 24" fill="none"
-                                                    xmlns="http://www.w3.org/2000/svg">
-                                                    <path class="fill-cyan-400" fill-rule="evenodd"
-                                                        clip-rule="evenodd"
-                                                        d="M9.5924 3.20027C9.34888 3.4078 9.22711 3.51158 9.09706 3.59874C8.79896 3.79854 8.46417 3.93721 8.1121 4.00672C7.95851 4.03705 7.79903 4.04977 7.48008 4.07522C6.6787 4.13918 6.278 4.17115 5.94371 4.28923C5.17051 4.56233 4.56233 5.17051 4.28923 5.94371C4.17115 6.278 4.13918 6.6787 4.07522 7.48008C4.04977 7.79903 4.03705 7.95851 4.00672 8.1121C3.93721 8.46417 3.79854 8.79896 3.59874 9.09706C3.51158 9.22711 3.40781 9.34887 3.20027 9.5924C2.67883 10.2043 2.4181 10.5102 2.26522 10.8301C1.91159 11.57 1.91159 12.43 2.26522 13.1699C2.41811 13.4898 2.67883 13.7957 3.20027 14.4076C3.40778 14.6511 3.51158 14.7729 3.59874 14.9029C3.79854 15.201 3.93721 15.5358 4.00672 15.8879C4.03705 16.0415 4.04977 16.201 4.07522 16.5199C4.13918 17.3213 4.17115 17.722 4.28923 18.0563C4.56233 18.8295 5.17051 19.4377 5.94371 19.7108C6.278 19.8288 6.6787 19.8608 7.48008 19.9248C7.79903 19.9502 7.95851 19.963 8.1121 19.9933C8.46417 20.0628 8.79896 20.2015 9.09706 20.4013C9.22711 20.4884 9.34887 20.5922 9.5924 20.7997C10.2043 21.3212 10.5102 21.5819 10.8301 21.7348C11.57 22.0884 12.43 22.0884 13.1699 21.7348C13.4898 21.5819 13.7957 21.3212 14.4076 20.7997C14.6511 20.5922 14.7729 20.4884 14.9029 20.4013C15.201 20.2015 15.5358 20.0628 15.8879 19.9933C16.0415 19.963 16.201 19.9502 16.5199 19.9248C17.3213 19.8608 17.722 19.8288 18.0563 19.7108C18.8295 19.4377 19.4377 18.8295 19.7108 18.0563C19.8288 17.722 19.8608 17.3213 19.9248 16.5199C19.9502 16.201 19.963 16.0415 19.9933 15.8879C20.0628 15.5358 20.2015 15.201 20.4013 14.9029C20.4884 14.7729 20.5922 14.6511 20.7997 14.4076C21.3212 13.7957 21.5819 13.4898 21.7348 13.1699C22.0884 12.43 22.0884 11.57 21.7348 10.8301C21.5819 10.5102 21.3212 10.2043 20.7997 9.5924C20.5922 9.34887 20.4884 9.22711 20.4013 9.09706C20.2015 8.79896 20.0628 8.46417 19.9933 8.1121C19.963 7.95851 19.9502 7.79903 19.9248 7.48008C19.8608 6.6787 19.8288 6.278 19.7108 5.94371C19.4377 5.17051 18.8295 4.56233 18.0563 4.28923C17.722 4.17115 17.3213 4.13918 16.5199 4.07522C16.201 4.04977 16.0415 4.03705 15.8879 4.00672C15.5358 3.93721 15.201 3.79854 14.9029 3.59874C14.7729 3.51158 14.6511 3.40781 14.4076 3.20027C13.7957 2.67883 13.4898 2.41811 13.1699 2.26522C12.43 1.91159 11.57 1.91159 10.8301 2.26522C10.5102 2.4181 10.2043 2.67883 9.5924 3.20027ZM16.3735 9.86314C16.6913 9.5453 16.6913 9.03 16.3735 8.71216C16.0557 8.39433 15.5403 8.39433 15.2225 8.71216L10.3723 13.5624L8.77746 11.9676C8.45963 11.6498 7.94432 11.6498 7.62649 11.9676C7.30866 12.2854 7.30866 12.8007 7.62649 13.1186L9.79678 15.2889C10.1146 15.6067 10.6299 15.6067 10.9478 15.2889L16.3735 9.86314Z"
-                                                        fill="#1C274C" />
-                                                </svg>
+                            @foreach ($funds as $fund)
+                                <a class="grid grid-cols-2 md:grid-cols-3  gap-3 md:gap-0 border-b border-neutral-200 py-7 md:py-5 "
+                                    href="{{ route('funds.detail', $fund->id) }}">
+                                    <div class="flex justify-center items-center ">
+                                        <img class="rounded-md md:w-3/4"
+                                            src="{{ asset('storage/' . $fund->image_url) }}" alt="">
+                                    </div>
+                                    <div class="flex justify-start items-center md:col-span-2 ">
+                                        <div>
+                                            <div class="text-sm flex flex-col">
+                                                <span
+                                                    class="font-semibold tracking-tight leading-4">{{ $fund->title }}</span>
+                                                <div class="flex items-center h-fit justify-start gap-1 mt-1.5">
+                                                    <span
+                                                        class="text-xs text-neutral-600 ">{{ $fund->user->name }}</span>
+                                                    <svg class="w-3 h-3" width="100%" height="100%"
+                                                        viewBox="0 0 24 24" fill="none"
+                                                        xmlns="http://www.w3.org/2000/svg">
+                                                        <path class="fill-cyan-400" fill-rule="evenodd"
+                                                            clip-rule="evenodd"
+                                                            d="M9.5924 3.20027C9.34888 3.4078 9.22711 3.51158 9.09706 3.59874C8.79896 3.79854 8.46417 3.93721 8.1121 4.00672C7.95851 4.03705 7.79903 4.04977 7.48008 4.07522C6.6787 4.13918 6.278 4.17115 5.94371 4.28923C5.17051 4.56233 4.56233 5.17051 4.28923 5.94371C4.17115 6.278 4.13918 6.6787 4.07522 7.48008C4.04977 7.79903 4.03705 7.95851 4.00672 8.1121C3.93721 8.46417 3.79854 8.79896 3.59874 9.09706C3.51158 9.22711 3.40781 9.34887 3.20027 9.5924C2.67883 10.2043 2.4181 10.5102 2.26522 10.8301C1.91159 11.57 1.91159 12.43 2.26522 13.1699C2.41811 13.4898 2.67883 13.7957 3.20027 14.4076C3.40778 14.6511 3.51158 14.7729 3.59874 14.9029C3.79854 15.201 3.93721 15.5358 4.00672 15.8879C4.03705 16.0415 4.04977 16.201 4.07522 16.5199C4.13918 17.3213 4.17115 17.722 4.28923 18.0563C4.56233 18.8295 5.17051 19.4377 5.94371 19.7108C6.278 19.8288 6.6787 19.8608 7.48008 19.9248C7.79903 19.9502 7.95851 19.963 8.1121 19.9933C8.46417 20.0628 8.79896 20.2015 9.09706 20.4013C9.22711 20.4884 9.34887 20.5922 9.5924 20.7997C10.2043 21.3212 10.5102 21.5819 10.8301 21.7348C11.57 22.0884 12.43 22.0884 13.1699 21.7348C13.4898 21.5819 13.7957 21.3212 14.4076 20.7997C14.6511 20.5922 14.7729 20.4884 14.9029 20.4013C15.201 20.2015 15.5358 20.0628 15.8879 19.9933C16.0415 19.963 16.201 19.9502 16.5199 19.9248C17.3213 19.8608 17.722 19.8288 18.0563 19.7108C18.8295 19.4377 19.4377 18.8295 19.7108 18.0563C19.8288 17.722 19.8608 17.3213 19.9248 16.5199C19.9502 16.201 19.963 16.0415 19.9933 15.8879C20.0628 15.5358 20.2015 15.201 20.4013 14.9029C20.4884 14.7729 20.5922 14.6511 20.7997 14.4076C21.3212 13.7957 21.5819 13.4898 21.7348 13.1699C22.0884 12.43 22.0884 11.57 21.7348 10.8301C21.5819 10.5102 21.3212 10.2043 20.7997 9.5924C20.5922 9.34887 20.4884 9.22711 20.4013 9.09706C20.2015 8.79896 20.0628 8.46417 19.9933 8.1121C19.963 7.95851 19.9502 7.79903 19.9248 7.48008C19.8608 6.6787 19.8288 6.278 19.7108 5.94371C19.4377 5.17051 18.8295 4.56233 18.0563 4.28923C17.722 4.17115 17.3213 4.13918 16.5199 4.07522C16.201 4.04977 16.0415 4.03705 15.8879 4.00672C15.5358 3.93721 15.201 3.79854 14.9029 3.59874C14.7729 3.51158 14.6511 3.40781 14.4076 3.20027C13.7957 2.67883 13.4898 2.41811 13.1699 2.26522C12.43 1.91159 11.57 1.91159 10.8301 2.26522C10.5102 2.4181 10.2043 2.67883 9.5924 3.20027ZM16.3735 9.86314C16.6913 9.5453 16.6913 9.03 16.3735 8.71216C16.0557 8.39433 15.5403 8.39433 15.2225 8.71216L10.3723 13.5624L8.77746 11.9676C8.45963 11.6498 7.94432 11.6498 7.62649 11.9676C7.30866 12.2854 7.30866 12.8007 7.62649 13.1186L9.79678 15.2889C10.1146 15.6067 10.6299 15.6067 10.9478 15.2889L16.3735 9.86314Z"
+                                                            fill="#1C274C" />
+                                                    </svg>
+                                                </div>
                                             </div>
-                                        </div>
 
-                                        @php
-                                            $progressPercentage = ($fund->collected_amount / $fund->goal_amount) * 100;
-                                        @endphp
-                                        <div class="bg-gray-200 rounded-full h-1.5 mt-2">
-                                            <div class="bg-sky-500 h-1.5 rounded-full"
-                                                style="width: {{ min($progressPercentage, 100) }}%;">
+                                            @php
+                                                $progressPercentage =
+                                                    ($fund->collected_amount / $fund->goal_amount) * 100;
+                                            @endphp
+                                            <div class="bg-gray-200 rounded-full h-1.5 mt-2">
+                                                <div class="bg-sky-500 h-1.5 rounded-full"
+                                                    style="width: {{ min($progressPercentage, 100) }}%;">
+                                                </div>
                                             </div>
-                                        </div>
 
-                                        <div class="mt-3 flex flex-col gap-1.5">
-                                            <span class="text-xs">Terkumpul</span>
-                                            <span
-                                                class="font-semibold text-sm tracking-tight">Rp{{ number_format($fund->collected_amount, 0, ',', '.') }}</span>
+                                            <div class="mt-3 flex flex-col gap-1.5">
+                                                <span class="text-xs">Terkumpul</span>
+                                                <span
+                                                    class="font-semibold text-sm tracking-tight">Rp{{ number_format($fund->collected_amount, 0, ',', '.') }}</span>
+                                            </div>
                                         </div>
                                     </div>
-                                </div>
+                                </a>
+                            @endforeach
+                        </div>
+                    @endforeach
+
+                    <!-- More button -->
+                    <div id="more-button-container" class="bg-neutral-50 flex  justify-center items-center py-5"
+                        style="display: none;">
+                        <div class="flex justify-center items-center gap-3 bg-sky-100 w-fit px-3.5 py-2 rounded-full">
+                            <a id="more-button" href="#" class=" text-sky-400 text-sm">
+                                Lihat Semua
                             </a>
-                        @endforeach
+                            <svg class="fill-sky-400 w-5 h-4" height="100%" width="100%" version="1.1"
+                                id="Layer_1" xmlns="http://www.w3.org/2000/svg"
+                                xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 330 330"
+                                xml:space="preserve">
+                                <path id="XMLID_222_" d="M250.606,154.389l-150-149.996c-5.857-5.858-15.355-5.858-21.213,0.001
+                                    c-5.857,5.858-5.857,15.355,0.001,21.213l139.393,139.39L79.393,304.394c-5.857,5.858-5.857,15.355,0.001,21.213
+                                    C82.322,328.536,86.161,330,90,330s7.678-1.464,10.607-4.394l149.999-150.004c2.814-2.813,4.394-6.628,4.394-10.606
+                                    C255,161.018,253.42,157.202,250.606,154.389z" />
+                            </svg>
+                        </div>
                     </div>
-                @endforeach
 
-                <!-- More button -->
-                <div id="more-button-container" class="bg-neutral-50 flex  justify-center items-center py-5"
-                    style="display: none;">
-                    <div class="flex justify-center items-center gap-3 bg-sky-100 w-fit px-3.5 py-2 rounded-full">
-                        <a id="more-button" href="#" class=" text-sky-400 text-sm">
-                            Lihat Semua
-                        </a>
-                        <svg class="fill-sky-400 w-5 h-4" height="100%" width="100%" version="1.1"
-                            id="Layer_1" xmlns="http://www.w3.org/2000/svg"
-                            xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 330 330" xml:space="preserve">
-                            <path id="XMLID_222_" d="M250.606,154.389l-150-149.996c-5.857-5.858-15.355-5.858-21.213,0.001
-                                c-5.857,5.858-5.857,15.355,0.001,21.213l139.393,139.39L79.393,304.394c-5.857,5.858-5.857,15.355,0.001,21.213
-                                C82.322,328.536,86.161,330,90,330s7.678-1.464,10.607-4.394l149.999-150.004c2.814-2.813,4.394-6.628,4.394-10.606
-                                C255,161.018,253.42,157.202,250.606,154.389z" />
-                        </svg>
-                    </div>
                 </div>
-
             </div>
 
             <div class="relative pt-10 bg-white">

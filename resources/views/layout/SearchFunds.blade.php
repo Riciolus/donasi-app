@@ -21,8 +21,8 @@
 <body class="font-inter bg-neutral-50 text-neutral-800">
     @include('layout.NavigationBar', ['query' => $query])
 
-    <div class="">
-        <div class="grid grid-cols-2 font-medium cursor-pointer">
+    <div class="md:mx-56 ">
+        <div class="grid grid-cols-2 md:pt-16 font-medium cursor-pointer">
             <div id="funds-button" class="flex justify-center items-center py-5 px-2 border-b-2 border-b-sky-400">
                 <span>Penggalangan Dana</span>
             </div>
@@ -34,11 +34,12 @@
 
         <div class="px-5 pt-3" id="funds-section">
             @foreach ($funds as $fund)
-                <a class="grid grid-cols-2 gap-5 py-9" href="{{ route('funds.detail', $fund->id) }}">
+                <a class="grid grid-cols-2 gap-5 py-9 md:py-5" href="{{ route('funds.detail', $fund->id) }}">
                     <div class="flex justify-center items-center">
-                        <img class="rounded-md" src="{{ asset('storage/' . $fund->image_url) }}" alt="" />
+                        <img class="rounded-md md:w-1/2" src="{{ asset('storage/' . $fund->image_url) }}"
+                            alt="" />
                     </div>
-                    <div class="flex justify-center items-center">
+                    <div class="flex justify-center md:justify-start items-center">
                         <div>
                             <div class="text-sm flex flex-col">
                                 <span class="font-semibold tracking-tight leading-4">{{ $fund->title }}</span>
@@ -70,7 +71,7 @@
             @endforeach
         </div>
 
-        <div class="px-5 pt-3 hidden" id="users-section">
+        <div class="px-5 pt-3 hidden md:mx-32" id="users-section">
             @foreach ($users as $user)
                 <a class="flex gap-4 py-5 items-center" href="">
                     <div class="rounded-full flex justify-center items-center">

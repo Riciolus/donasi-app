@@ -18,7 +18,7 @@
     @vite('resources/css/app.css')
 </head>
 
-<body class="font-inter bg-neutral-50 text-neutral-950">
+<body class="font-inter bg-neutral-50 text-neutral-950 overflow-hidden">
     <nav class="wrapper flex justify-center items-center bg-sky-400 h-16 ">
         <a href="{{ url()->previous() }}" class="ml-5">
             <svg class="fill-neutral-50 w-5 h-5" version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg"
@@ -34,7 +34,7 @@
         </div>
     </nav>
 
-    <div class=" max-h-screen h-screen flex flex-col justify-center items-center px-7 py-5">
+    <div class=" max-h-screen h-screen flex flex-col justify-center items-center px-7 py-5 md:mx-[35vw]">
 
         <h1 class="font-bold text-xl text-neutral-700">Masuk untuk mulai tolong-menolong sesama</h1>
 

@@ -18,11 +18,11 @@
     @vite('resources/css/app.css')
 </head>
 
-<body class="antialiased font-inter bg-neutral-50 text-neutral-700 ">
-    <div>
+<body class="antialiased font-inter bg-neutral-50 text-neutral-700">
+    <div class="md:mx-56 mb-12">
 
-        <div class="absolute top-0 left-3">
-            <a href="/" class="ml-5">
+        <div class="absolute top-0 left-3 md:mx-56">
+            <a href="/" class="ml-5 ">
                 <svg class="fill-neutral-50 w-5 h-5" version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg"
                     xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 330 330" xml:space="preserve">
                     <path id="XMLID_92_"
@@ -33,8 +33,9 @@
             </a>
         </div>
         {{-- Image --}}
-        <div class="w-full">
-            <img class="w-full" src="{{ asset('storage/' . $fund->image_url) }}" alt="">
+        <div class="w-full ">
+            <img class="w-full md:h-[25rem] object-cover " src="{{ asset('storage/' . $fund->image_url) }}"
+                alt="">
         </div>
 
 
@@ -225,9 +226,9 @@
 
 
                         @foreach ($fund->contributions as $contribution)
-                            <div>
+                            <div class="flex justify-center items-center">
                                 <div
-                                    class="flex justify-start items-center gap-5 bg-neutral-200/70 py-3 px-5 rounded-lg">
+                                    class="flex justify-start items-center w-full md:w-[90%] gap-5 bg-neutral-200/70 py-3 px-5 rounded-lg">
                                     <div class="relative w-10 h-10 rounded-full bg-neutral-700">
                                         {{-- <img src="" alt=""> --}}
                                     </div>
@@ -255,52 +256,55 @@
 
         {{-- Start Donation Button --}}
         <div class="fixed bottom-0 left-0 w-full">
-            <div class="bg-neutral-200 flex justify-center items-center p-5">
-                @if ($fund->user_id === $userId)
-                    <div class="grid grid-cols-2 gap-3 w-full">
-                        <button id="openWithdrawalModal"
-                            class="w-full py-2 rounded-md text-neutral-50 font-bold bg-blue-500">
-                            Cairkan Dana
-                        </button>
-                        <form action="{{ route('fund.delete', $fund->id) }}" method="POST">
-                            @csrf
-                            @method('DELETE')
-                            <button type="submit"
-                                class="w-full py-2 rounded-md text-neutral-50 font-bold bg-red-400">
-                                Hapus Donasi
-                            </button>
-                        </form>
+            <div class="bg-neutral-200 flex  justify-center items-center p-5 md:p-3 md:bg-opacity-85">
 
-                    </div>
-                @else
-                    @if (Auth::check())
-                        <button id="openFormModal"
-                            class="w-full py-2 rounded-md text-neutral-50 font-bold bg-pink-600">
-                            Donasi Sekarang
-                        </button>
+                <div class="md:w-1/2 w-full">
+                    @if ($fund->user_id === $userId)
+                        <div class="grid grid-cols-2 gap-3 w-full">
+                            <button id="openWithdrawalModal"
+                                class="w-full py-2 rounded-md text-neutral-50 font-bold bg-blue-500">
+                                Cairkan Dana
+                            </button>
+                            <form action="{{ route('fund.delete', $fund->id) }}" method="POST">
+                                @csrf
+                                @method('DELETE')
+                                <button type="submit"
+                                    class="w-full py-2 rounded-md text-neutral-50 font-bold bg-red-400">
+                                    Hapus Donasi
+                                </button>
+                            </form>
+
+                        </div>
                     @else
-                        <a href="{{ url('auth/login') }}" class="w-full">
-                            <button class="w-full py-2 rounded-md text-neutral-50 font-bold bg-pink-600">
+                        @if (Auth::check())
+                            <button id="openFormModal"
+                                class="w-full  py-2 rounded-md text-neutral-50 font-bold bg-pink-600">
                                 Donasi Sekarang
                             </button>
-                        </a>
+                        @else
+                            <a href="{{ url('auth/login') }}" class="w-full">
+                                <button class="w-full  py-2 rounded-md text-neutral-50 font-bold bg-pink-600">
+                                    Donasi Sekarang
+                                </button>
+                            </a>
+                        @endif
                     @endif
-                @endif
+                </div>
             </div>
         </div>
 
         <!-- Donation Modal ) -->
         <div id="donate-form"
             class="fixed inset-0 text-neutral-700 bg-black bg-opacity-50 justify-center flex items-end">
-            <div class="bg-neutral-50 px-3 pt-5 rounded-t-lg w-full max-w-md h-[80%] transform translate-y-full transition-transform duration-300"
+            <div class="bg-neutral-50 px-3 pt-5 rounded-t-lg md:rounded-t-2xl w-full  h-[80%] md:h-fit md:pb-5 transform translate-y-full transition-transform duration-300"
                 id="modal-content">
                 <h2 class="text-lg text-center font-bold ">Pilih Nominal Donasi</h2>
 
                 <form id="donationForm" action="{{ route('fund.contribute', $fund->id) }}" method="POST">
                     @csrf
 
-                    <div>
-                        <div class="flex flex-col gap-3 mt-4">
+                    <div class="md:mx-96">
+                        <div class="flex flex-col md:grid md:grid-cols-2 gap-3 mt-4">
 
                             {{-- 5.000 --}}
                             <div
@@ -595,9 +599,9 @@
 
 
 
-                    <div>
-                        <button type="submit"
-                            class="w-full bg-pink-400 py-2 rounded-md mt-3 text-lg text-neutral-50 font-bold tracking-wide">Donasi</button>
+                    <div class="md:mx-56 md:flex md:justify-center md:items-center">
+                        <button type="submit  "
+                            class="w-full bg-pink-400 md:w-1/2 py-2 rounded-md mt-3 text-lg text-neutral-50 font-bold tracking-wide">Donasi</button>
                     </div>
                 </form>
 
