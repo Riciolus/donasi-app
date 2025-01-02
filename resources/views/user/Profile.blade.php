@@ -365,9 +365,6 @@
                         </form>
                     </div>
 
-
-
-
                     {{-- Close Edit Modal button --}}
                     <button id="closeEditModal" class="absolute top-2 right-4 mt-3 ">
                         <svg class="w-5 h-5" width="100%" height="100%" viewBox="0 0 24 24" fill="none"
@@ -392,7 +389,6 @@
                             @csrf
                             <div class="flex flex-col gap-5 mt-3">
                                 <div class="border py-2 px-3 mt-5 border-gray-300 rounded-md">
-
                                     <h5 class="font-semibold ">Masukan Nominal Topup</h5>
                                     <div class="flex items-center bg-neutral-200 bg-opacity-50 rounded-md mt-4">
                                         <h2 class="ml-4 text-2xl font-bold">Rp</h2>
@@ -410,17 +406,12 @@
 
                                 </div>
                             </div>
-
                             <div class="mt-5">
                                 <button type="submit"
                                     class="w-full bg-indigo-400 py-2 hover:bg-indigo-600 transition-colors rounded-md mt-3 text-lg text-neutral-50 font-bold tracking-wide">Submit</button>
                             </div>
                         </form>
                     </div>
-
-
-
-
                     {{-- Close Topup Modal button --}}
                     <button id="closeTopupModal" class="absolute top-2 right-4 mt-3 ">
                         <svg class="w-5 h-5" width="100%" height="100%" viewBox="0 0 24 24" fill="none"
@@ -432,8 +423,6 @@
                     </button>
                 </div>
             </div>
-
-
         </div>
     </div>
 

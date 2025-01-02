@@ -1,15 +1,12 @@
 <?php
 
 use App\Http\Controllers\AuthController;
-use App\Http\Controllers\ContributionController;
 use App\Http\Controllers\FundController;
-use App\Http\Controllers\FundsController;
-use App\Http\Controllers\HomeController;
 use App\Http\Controllers\MainController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
-// Home route
+// Main route
 Route::get('/', [MainController::class, 'index'])->name('main');
 
 // Fund routes
@@ -23,7 +20,7 @@ Route::prefix('funds')->group(function () {
     Route::get('/search', [FundController::class, 'search'])->name('funds.search');
 });
 
-// Authentication routes
+// Autentikasi routes
 Route::prefix('auth')->group(function () {
     Route::get('/login', [AuthController::class, 'showLoginForm'])->name('login');
     Route::post('/login', [AuthController::class, 'login']);
@@ -34,7 +31,7 @@ Route::prefix('auth')->group(function () {
     Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 });
 
-// Profile routes
+// User routes
 Route::middleware('auth')->prefix('profile')->group(function () {
     Route::get('/', [UserController::class, 'index']);
     Route::post('/edit', [UserController::class, 'update'])->name('user.edit');

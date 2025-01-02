@@ -37,9 +37,6 @@
     <div class=" max-h-screen h-screen flex flex-col justify-center items-center px-7 py-5 md:mx-[35vw]">
 
         <h1 class="font-bold text-xl text-neutral-700">Perjalanan kebaikanmu dimulai di sini</h1>
-
-
-
         <div class="w-full ">
             <form action="{{ route('register') }}" method="POST">
                 @csrf

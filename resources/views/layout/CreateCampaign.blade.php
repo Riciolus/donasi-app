@@ -34,12 +34,12 @@
         </div>
     </nav>
 
-    <div class="p-5">
+    <div class="p-5 md:mx-64">
         <div>
             <h3 class="font-bold text-lg">Buat penggalangan dana untuk mulai mengumpulkan orang-orang baik</h3>
         </div>
 
-        <div class="mt-5 px-2">
+        <div class="mt-5 px-2 ">
             <form action="{{ route('fund.store') }}" method="POST" enctype="multipart/form-data"
                 class="flex flex-col gap-3">
                 @csrf
@@ -105,9 +105,9 @@
                     @endforeach
                 @endif
 
-                <div class="mt-5">
+                <div class="mt-5 md:flex md:justify-center md:items-center">
                     <button type="submit"
-                        class="w-full bg-pink-400 py-2 hover:bg-pink-600 transition-colors rounded-md mt-3 text-lg text-neutral-50 font-bold tracking-wide">Buat
+                        class="w-full bg-pink-400 md:w-1/2 py-2 hover:bg-pink-600 transition-colors rounded-md mt-3 text-lg text-neutral-50 font-bold tracking-wide">Buat
                         Penggalangan Dana</button>
                 </div>
             </form>

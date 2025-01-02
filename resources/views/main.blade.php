@@ -7,6 +7,7 @@
 
     <title>DonasiKuy!</title>
     <link rel="icon" href="{{ asset('assets/icons/favicon.png') }}">
+
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -14,15 +15,10 @@
         href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Nunito:ital,wght@0,200..1000;1,200..1000&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap"
         rel="stylesheet">
 
-    <!-- SweetAlert2 -->
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-
     @vite('resources/css/app.css')
 </head>
 
 <body class="antialiased font-inter  bg-neutral-50 text-neutral-700">
-
     {{-- Notifikasi --}}
     <div id="toast"
         class="z-50 hidden fixed top-16 right-[-300px] bg-sky-100 text-sky-800 px-4 font-medium py-1 rounded-xl shadow-md transform transition-transform duration-300">
@@ -32,16 +28,13 @@
     {{-- Navbar --}}
     @include('/layout/navigationBar')
 
-
-    {{-- Wrapper --}}
     <div class="relative page-wrapper md:mx-56 pt-48 md:pt-52">
-
         <div class="absolute bg-sky-400 top-0 -z-10 rounded-b-[2rem] md:w-full h-56 md:h-64 flex flex-col justify-end">
             <img src="{{ asset('assets/interface/bg-hero.webp') }}" class="md:w-full md:h-full  md:object-cover"
                 alt="">
         </div>
 
-        {{-- Menu Saldo etc. --}}
+        {{-- Menu Saldo --}}
         <div class="shadow-md rounded-md  border  py-2 md:mb-3 text-sm mx-3 md:mx-24 bg-neutral-100">
             <div class="flex">
                 <div class="flex gap-1 ml-2 w-1/2 border-r border-neutral-400">
@@ -99,8 +92,6 @@
                             d="M456.5 496.9c-11 5.4-18 10.7-22.3 23.3-4.8 14.1 1.3 26.5 14.5 31 34.1 11.7 45.7-54.8 94.4-38.1 21.3 7.3 31.1 25.7 26.7 47.7l22.3 7.6-4.2 12.2-22.1-7.6c-6.4 14-18.5 25.7-30.3 32l-8.6-11.7c11.4-6.4 22.1-15.5 26.9-29.6 5.9-17.3-0.5-29.3-15.1-34.3-38.1-13.1-50.7 53.1-94.9 37.9-19.7-6.7-29.4-24.9-25.7-44.9l-22.3-7.6 4.2-12.2 22.1 7.6c6.3-13.8 16.3-20.7 27.4-25.6l7 12.3z"
                             fill="" />
                     </svg>
-
-
                     <div class="flex flex-col">
                         <span
                             class="font-semibold text-base">{{ Auth::check() ? number_format($userBalance->balance, 0, ',', '.') : '-' }}</span>
@@ -189,11 +180,9 @@
                             d="M550.515 420.205l150.843 31.03-2.62 12.734-150.843-31.03zM428.579 445.695l262.8 54.062-2.62 12.734-262.8-54.063zM418.577 494.19l262.8 54.063-2.62 12.734-262.8-54.063zM408.596 542.589l262.8 54.062-2.62 12.734-262.8-54.063zM398.595 591.085l262.8 54.062-2.62 12.734-262.8-54.063zM388.009 642.725l188.651 38.81-2.62 12.733-188.65-38.81z"
                             fill="#514DDF" />
                     </svg>
-
                     <div class="flex flex-col">
                         <span
                             class="font-semibold text-base">{{ Auth::check() ? number_format($totalDonation, 0, ',', '.') : '-' }}</span>
-
                         <span class="text-neutral-600">Total Sedekah</span>
                     </div>
                 </div>
@@ -208,17 +197,11 @@
         </div>
 
         <div class="bg-gray-100">
-            {{-- Card Slider Event --}}
-            {{-- ???? --}}
-
-
-            {{-- Card Slider Donasi --}}
+            {{-- Card Slider Donasi 1 --}}
             <div class=" bg-neutral-50 py-5 md:px-5 md:py-10">
                 <div class="mx-3">
                     <h3 class="font-bold ">Penggalangan Dana Mendesak</h3>
                 </div>
-
-
                 @if ($latestFunds->count())
                     <div
                         class="flex md:justify-start md:items-center w-full md:px-1 ml-3 md:ml-0 mt-3 pb-1 gap-3 md:gap-5 overflow-x-scroll scroll-smooth ">
@@ -259,8 +242,6 @@
                             </div>
                         @endforeach
                     </div>
-                @else
-                    <p>No funds available or Server is busy, please try again.</p>
                 @endif
             </div>
 
@@ -271,18 +252,18 @@
                 </div>
 
                 <div class="relative w-full  overflow-hidden mt-3">
-                    <div id="slider" class="flex transition-transform  duration-500 ease-in-out">
+                    <div id="slider" class="flex transition-transform   duration-500 ease-in-out">
                         @foreach ($recommendationFunds as $fund)
-                            <div class="w-full flex-shrink-0 ">
-                                <a href="{{ route('funds.detail', $fund->id) }}">
+                            <div class="w-full flex-shrink-0 md:w-full md:flex md:justify-center">
+                                <a href="{{ route('funds.detail', $fund->id) }}" class="">
                                     <img src="{{ asset('storage/' . $fund->image_url) }}"
-                                        class="w-full max-w-full md:h-96 object-contain rounded-lg">
+                                        class="w-full max-w-full md:h-96 object-contain rounded-lg ">
                                 </a>
                             </div>
                         @endforeach
                     </div>
 
-                    <!-- Navigation Dots -->
+                    <!-- Titik Tombol Navigasi -->
                     <div class="absolute bottom-3 left-1/2 transform -translate-x-1/2 flex space-x-2">
                         <div class="dot w-1.5 h-1.5 rounded-full bg-gray-100 cursor-pointer" onclick="showSlide(0)">
                         </div>
@@ -292,15 +273,13 @@
                         </div>
                     </div>
                 </div>
-
             </div>
 
-
+            {{-- Card Slider Donasi 2 --}}
             <div class="bg-neutral-50 py-5 md:px-5 mt-3">
                 <div class="mx-3 ">
                     <h3 class="font-bold">Program Spesial DonasiKuy</h3>
                 </div>
-
                 @if ($oldestFunds->count())
                     <div
                         class="flex md:justify-start md:items-center  w-full md:px-1 ml-3 md:ml-0 mt-3 pb-1 gap-3 md:gap-5 overflow-x-scroll scroll-smooth ">
@@ -346,6 +325,7 @@
                 @endif
             </div>
 
+            {{-- Card Slider Donasi 3 --}}
             <div class="bg-neutral-50 py-5 md:px-5 mt-3">
                 <div class="mx-3 ">
                     <h3 class="font-bold">Pilihan DonasiKuy</h3>
@@ -636,15 +616,10 @@
                         </div>
                         <span class="text-sm text-center">Lainnya</span>
                     </button>
-
-
                 </div>
-
-
             </div>
 
             <!-- Category Content Divs -->
-
             <div class="md:px-5 bg-neutral-50">
                 <div class="bg-sky-100 bg-opacity-95 border-b md:rounded-xl  pt-5">
 
@@ -728,12 +703,13 @@
             </div>
 
             <div class="relative pt-10 bg-white">
-                <img class="absolute object-fill w-full" src="{{ asset('assets/interface/bg-blue.png') }}"
-                    alt="">
-                <img class="absolute left-3" width="100" src="{{ asset('assets/interface/amin.png') }}"
-                    alt="">
+                <img class="absolute object-fill w-full md:h-full md:mt-10"
+                    src="{{ asset('assets/interface/bg-blue.png') }}" alt="">
 
-                <div class="relative flex gap-3 z-10 ml-36 mt-20">
+                <img class="absolute left-8 md:left-[20vw] md:top-6" width="100"
+                    src="{{ asset('assets/interface/amin.png') }}" alt="">
+
+                <div class="relative left-3 md:left-[20vw] flex gap-3 md:gap-5 z-10 ml-36 mt-20">
                     <div>
                         <svg class="w-8 " version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg"
                             xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 473.931 473.931"
@@ -748,7 +724,6 @@
                                     v-90.584l68.695,45.294L216.64,280.146z" />
                         </svg>
                     </div>
-
                     <div>
                         <svg class="w-8 " version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg"
                             xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 474.006 474.006"
@@ -771,7 +746,6 @@
                             C396.817,232.674,379.609,230.593,370.487,226.792z" />
                         </svg>
                     </div>
-
                     <div>
                         <svg class="w-8 " version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg"
                             xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 474.294 474.294"
@@ -788,7 +762,6 @@
                             z" />
                         </svg>
                     </div>
-
                     <div>
                         <svg class="w-8 " version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg"
                             xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 474.616 474.616"
@@ -808,22 +781,13 @@
                             C273.63,217.529,257.331,233.282,237.631,233.282z" />
                         </svg>
                     </div>
-
-
                 </div>
             </div>
-
             <div class="">
                 <span>Copyright © 2024 Kitabisa. All Rights Reserved</span>
             </div>
-
         </div>
-
-
-
     </div>
-
-
     </div>
 
     @if (session('success'))

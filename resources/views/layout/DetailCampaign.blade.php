@@ -4,16 +4,13 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-
     <title>DonasiKuy! - Campaign</title>
-
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link
         href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Nunito:ital,wght@0,200..1000;1,200..1000&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap"
         rel="stylesheet">
-
     {{-- Connect CSS  --}}
     @vite('resources/css/app.css')
 </head>
@@ -37,9 +34,6 @@
             <img class="w-full md:h-[25rem] object-cover " src="{{ asset('storage/' . $fund->image_url) }}"
                 alt="">
         </div>
-
-
-
         <div class=" bg-gray-100">
 
             {{-- Main Information --}}
@@ -148,18 +142,15 @@
             </div>
 
             {{-- More Detailed Information --}}
-
             <div class="mt-4 px-3 py-3 bg-neutral-50 ">
-
                 {{-- Informasi pembuat fund --}}
                 <div class="border-b pb-6">
                     <h4 class="text-lg font-bold text-neutral-700">Informasi Penggalangan Dana</h4>
-
                     <div class="border rounded-md p-3 mt-3">
                         <span class="font-medium">Penggalang dana</span>
                         <div class="flex justify-start gap-2 items-center my-3">
-                            <div class="relative w-10 h-10  rounded-full bg-neutral-700">
-                                {{-- <img src="" alt=""> --}}
+                            <div class="relative w-10 h-10  rounded-full">
+                                <img src="{{ asset('storage/' . $fund->user->profile_image_url) }}" alt="">
                             </div>
                             <div class="font-bold text-neutral-800 flex justify-center items-center gap-0.5">
                                 <span>{{ $fund->user->name }}</span>
@@ -209,16 +200,15 @@
                             <span
                                 class="bg-cyan-200/50 rounded-full px-2.5 text-lg font-bold text-sky-600">{{ $totalContributors }}</span>
                         </div>
-
                         <div>
                             <svg class="fill-neutral-600 w-5 h-4" height="100%" width="100%" version="1.1"
                                 id="Layer_1" xmlns="http://www.w3.org/2000/svg"
                                 xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 330 330"
                                 xml:space="preserve">
                                 <path id="XMLID_222_" d="M250.606,154.389l-150-149.996c-5.857-5.858-15.355-5.858-21.213,0.001
-                    c-5.857,5.858-5.857,15.355,0.001,21.213l139.393,139.39L79.393,304.394c-5.857,5.858-5.857,15.355,0.001,21.213
-                    C82.322,328.536,86.161,330,90,330s7.678-1.464,10.607-4.394l149.999-150.004c2.814-2.813,4.394-6.628,4.394-10.606
-                    C255,161.018,253.42,157.202,250.606,154.389z" />
+                                    c-5.857,5.858-5.857,15.355,0.001,21.213l139.393,139.39L79.393,304.394c-5.857,5.858-5.857,15.355,0.001,21.213
+                                    C82.322,328.536,86.161,330,90,330s7.678-1.464,10.607-4.394l149.999-150.004c2.814-2.813,4.394-6.628,4.394-10.606
+                                    C255,161.018,253.42,157.202,250.606,154.389z" />
                             </svg>
                         </div>
                     </div>
@@ -244,8 +234,6 @@
                                 </div>
                             </div>
                         @endforeach
-
-
                     </div>
                 </div>
             </div>
